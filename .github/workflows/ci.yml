@@ -10,8 +10,8 @@ permissions:
 
 jobs:
   data-workflow:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
     services:
       postgres:
         image: postgres:17.11-bookworm
@@ -30,6 +30,7 @@ jobs:
       TEST_DATABASE_URL: postgresql+psycopg://commute:commute_ci@127.0.0.1:5432/commute_test
       REQUIRE_INTEGRATION_TESTS: "1"
       BROWSER_TEST_DATABASE_URL: postgresql+psycopg://commute:commute_ci@127.0.0.1:5432/commute_browser_test
+      PG_BIN: /usr/lib/postgresql/17/bin
     steps:
       - uses: actions/checkout@v7
       - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
@@ -38,6 +39,12 @@ jobs:
           python-version: "3.13"
           enable-cache: true
       - run: uv sync --locked
+      - name: PostgreSQL 17 backup/restore client tools
+        run: |
+          if ! test -x "$PG_BIN/pg_dump"; then
+            sudo apt-get update
+            sudo apt-get install --yes postgresql-client-17
+          fi
       - name: Unit and PostgreSQL integration checks (including migrations)
         run: uv run --locked pytest
       - uses: actions/setup-node@v7
@@ -57,3 +64,24 @@ jobs:
       - name: Browser journeys on desktop and mobile
         working-directory: web
         run: npm run test:e2e
+      - name: Build deployment image
+        run: docker build --tag know-your-commute:ci .
+      - name: Verify the running container with isolated synthetic data
+        run: |
+          docker run --detach --name commute-container-check --network host \
+            --env DATABASE_URL="$BROWSER_TEST_DATABASE_URL" --env PORT=8003 know-your-commute:ci
+          trap 'docker rm --force commute-container-check' EXIT
+          python - <<'PY'
+          import time
+          from urllib.request import urlopen
+          for attempt in range(30):
+              try:
+                  with urlopen('http://127.0.0.1:8003/api/v1/ready', timeout=2) as response:
+                      if response.status == 200:
+                          break
+              except OSError:
+                  time.sleep(1)
+          else:
+              raise SystemExit('Container did not become ready.')
+          PY
+          python scripts/check_deployment.py --base-url http://127.0.0.1:8003 --expected-records 35

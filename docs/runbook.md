@@ -25,7 +25,7 @@ UV_CACHE_DIR="$PWD/work/uv-cache" .venv/bin/uv sync --locked
 
 On this Mac, the existing Python 3.13 used for bootstrap is `/opt/anaconda3/bin/python3.13`. No shared packages were changed. The app runner marks ignored `.pth` files hidden, which can prevent editable package discovery on macOS/Python 3.13; the explicit `PYTHONPATH` above handles this. Normal installed wheels do not require that workaround.
 
-The example database credentials are for a loopback-only developer database. Production credentials and separate read-only API/import roles will be configured during deployment; do not reuse these examples publicly. Real `.env` files stay ignored.
+The example database credentials are for a loopback-only developer database. Deployment uses separate read-only API/import credentials; the explicit grants helper and verified role boundary are documented in `docs/deployment.md`. Do not reuse local examples publicly. Real `.env` files stay ignored.
 
 ## Run the dashboard and API
 
@@ -59,7 +59,7 @@ npm run test:e2e
 
 The seeder can create/reset only the exact database `commute_browser_test`. Its 40 synthetic rows are labelled in code and deliberately exercise missing duration, zero, unknown code and pagination. Its route-102 expected count is 35, distinct from the real source's January count of 65. The suite owns port 8002, starts the built app, and refuses to reuse an existing server. Use `npm run test:e2e -- --list` for collection only.
 
-Current verification: seeding and its PostgreSQL summary were checked, and all six desktop/mobile cases collected. The suite's headless execution and remote GitHub Actions execution are still unverified; local GUI QA used the app's browser-control tools. CI is configured to install the browser and run these cases after the Python checks/frontend build. Do not describe the prepared workflow as a passing remote CI run.
+Current verification: all eight desktop/mobile cases passed locally, including the Home Screen assets. Browser launch needed the normal process approval mechanism on this Mac. Remote GitHub Actions execution is recorded separately in progress. CI installs the browser, runs these journeys, builds the Docker image and checks the running container against the isolated synthetic fixture.
 
 ## Database options
 
@@ -140,7 +140,7 @@ After a process crash, PostgreSQL rolls back the uncommitted data and releases i
 
 No automatic snapshot deletion or manual pointer-editing command is provided. Keep historical provenance during this milestone. A previously processed byte-for-byte source reversion safely reactivates its old snapshot through the normal importer.
 
-For a broken local test database, recreate **only** `commute_test` intentionally, then reapply migrations. Do not point integration tests at `commute` or a shared database. No backup/restore performance or production-recovery claim has been established in Phase 0; a restore drill belongs to Phase 4.
+For a broken local test database, recreate **only** `commute_test` intentionally, then reapply migrations. Do not point integration tests at `commute` or a shared database. The Phase 4 real-source backup/restore drill now passed. See `docs/operations.md` for the private backup commands, scratch-only restore verifier, measured timings and their limits.
 
 ## Wentao's interview walkthrough
 
@@ -149,3 +149,11 @@ Start with fixture `_id=1`. Its manifest points back to original CSV row 2. Foll
 Then read the hand-calculated SQL test: route 102 has three matching records with recorded delays `[10, missing, 0]`, so the numeric sample count is two and the median is five. Change one input and predict the result before rerunning the test. Explain why the source's 300 repeated extra payloads are retained, why a cumulative correction replaces a snapshot, and why none of these counts is a trip-level probability.
 
 For the web slice, follow `route=102` and the dates from the address bar to `FilterQuery`, the shared `Filters` selection, the pinned snapshot and `route_summary.sql`, then the typed response and React metric/chart. Explain why the chart and page-2 request include the returned snapshot ID. Changing the real January end date from the 31st to the 15th changes the record count from 65 to 39; both were checked against original CSV cells. Date-form submission and pagination focus were browser bugs caught after the API tests already passed.
+
+## Website and iPhone preparation
+
+`docs/deployment.md` describes the reviewed container/Render configuration, current
+provider allowances and credential boundary. Hosting is a separate account/plan
+decision. `docs/operations.md` describes the opt-in weekly refresh, private logical
+backup/restore commands and measured query plans. No production credentials or
+public app URL are embedded in this checkout.

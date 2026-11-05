@@ -1,0 +1,52 @@
+name: Check official TTC source
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 11 * * 1"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: commute-official-source-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    # Activate the weekly schedule only after a successful deliberate manual run.
+    if: github.event_name == 'workflow_dispatch' || vars.COMMUTE_REFRESH_ENABLED == 'true'
+    environment: production
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      DATABASE_URL: ${{ secrets.IMPORT_DATABASE_URL }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: "0.13.7"
+          python-version: "3.13"
+          enable-cache: true
+      - name: Require a configured import credential
+        run: |
+          python - <<'PY'
+          import os
+          if not os.environ.get('DATABASE_URL'):
+              raise SystemExit('Set the production environment secret IMPORT_DATABASE_URL first.')
+          PY
+      - run: uv sync --locked --no-dev
+      - name: Import lookup then cumulative delays (database lock also prevents overlap)
+        run: uv run --locked commute refresh
+      - name: Show public freshness and active-source status, including after failure
+        if: always()
+        run: uv run --locked commute data-health --public
+      - name: Retain only public source originals and their download manifests
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: official-ttc-source-${{ github.run_id }}
+          path: data/raw/
+          if-no-files-found: ignore
+          retention-days: 7
+          # Database dumps and private diagnostics must never be public artifacts.

@@ -1,0 +1,13 @@
+# Candidate configuration. No service has been provisioned by adding this file.
+services:
+  - type: web
+    name: know-your-commute
+    runtime: docker
+    plan: free
+    region: ohio
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/v1/health
+    autoDeployTrigger: "off"
+    envVars:
+      - key: DATABASE_URL
+        sync: false

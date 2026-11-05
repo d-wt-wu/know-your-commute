@@ -62,4 +62,16 @@ Date inputs submit their displayed values through FormData. Browser QA caught th
 
 ## 12 — Separate real-source QA from synthetic browser CI
 
-Local browser verification used the real PostgreSQL import and independently checked route/date totals. The prepared Playwright CI suite uses an explicitly labelled synthetic 40-row fixture in `commute_browser_test`; its seeding command refuses any other database name. No test fixture replaces the main `commute` database. Six desktop/mobile browser cases were collected successfully, but their headless execution and remote CI run are not claimed. The actual local UI journeys were exercised through the app's browser-control tools.
+Local browser verification used the real PostgreSQL import and independently checked route/date totals. The Playwright suite uses an explicitly labelled synthetic 40-row fixture in `commute_browser_test`; its seeding command refuses any other database name. No test fixture replaces the main `commute` database. All eight desktop/mobile cases now pass locally, including filters/history/pagination, failures/retry, layout and Home Screen asset delivery. Running Chromium required the normal process approval mechanism because the restricted app runner could not launch it. Remote CI is recorded separately in progress.
+
+## 13 — Verify a backup against the state actually dumped
+
+A row count alone cannot detect corrupted or changed content. Export one repeatable-read snapshot, hash every row of every application table in primary-key order, and give the same snapshot to pg_dump. Restoring that dump into a new scratch database must reproduce every hash, even if a refresh commits meanwhile. No restore command overwrites an existing database. The real 107,349-row source passed this drill; private dumps stay outside Git and public artifacts.
+
+## 14 — Start with the website and iPhone Home Screen version
+
+The existing responsive interface and API already support the first useful phone experience. Add a manifest, app icons, standalone metadata, larger touch controls and clear Safari installation instructions. Keep record requests online so cached API results do not obscure source freshness. A native client can reuse the API later, but Apple membership and App Store review are separate decisions. This keeps the chosen Python/SQL project focused while making its actual interface usable on phones.
+
+## 15 — Measure before adding another index
+
+The real selective route-102/January summary used `ix_delay_route_date` for 65 rows. The all-data summary used a sequential scan over 107,349 rows. Repeated local summary calls had medians of 0.429 ms and 16.329 ms respectively; both plans read cached blocks. No index change is justified by those observations. Preserve the plans and actual conditions; do not describe a fresh connection as a cold-cache result or invent an optimization percentage.

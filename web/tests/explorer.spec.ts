@@ -85,3 +85,24 @@ test('mobile page fits and tables have their own scrolling area', async ({ page 
     page.getByRole('heading', { name: 'A record is not a trip.', exact: true }),
   ).toBeVisible()
 })
+
+test('Home Screen assets load and installation guidance is available', async ({
+  page,
+  request,
+}) => {
+  await page.goto('/about')
+  await expect(
+    page.getByRole('heading', { name: 'Keep the explorer on your iPhone', exact: true }),
+  ).toBeVisible()
+  await expect(page.getByText(/An internet connection is required/)).toBeVisible()
+  const manifestUrl = await page.locator('link[rel="manifest"]').getAttribute('href')
+  const response = await request.get(manifestUrl!)
+  expect(response.ok()).toBe(true)
+  expect(response.headers()['content-type']).toContain('application/manifest+json')
+  const manifest = await response.json()
+  for (const icon of manifest.icons) {
+    const png = await request.get(icon.src)
+    expect(png.headers()['content-type']).toContain('image/png')
+    expect((await png.body()).subarray(0, 8).toString('hex')).toBe('89504e470d0a1a0a')
+  }
+})

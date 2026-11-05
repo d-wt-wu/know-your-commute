@@ -1,8 +1,8 @@
 # Know Your Commute — TTC Delay Explorer
 
-An independent project by **Wentao Wu** for exploring historical reported TTC bus delay records. The first slice is a Python/PostgreSQL data workflow: preserve the source, validate it, replace cumulative snapshots safely, and answer route/date questions with SQL.
+An independent project by **Wentao Wu** for exploring historical reported TTC bus delay records. Select a bus route and date range, inspect recorded causes/durations, and follow a result back to its source rows and quality flags.
 
-**Status:** Phases 0–3 work locally: a verified PostgreSQL importer, a typed FastAPI API and a React/TypeScript dashboard using real records. **63 Python tests passed**, including the new API cases. Desktop/mobile browser flows were verified against the real source. Browser CI cases are prepared and collected, but have not been executed on GitHub. There is no public deployment or remote repository yet. See [progress](docs/progress.md) and [API contract](docs/api.md).
+**Status:** Working locally with **107,349 official records**, a tested PostgreSQL importer, FastAPI API and React/TypeScript dashboard. **68 Python checks and eight desktop/mobile browser checks passed locally.** A real backup was restored and every table fingerprint matched. Website/container and iPhone Home Screen configuration are prepared; hosting is not provisioned. Remote CI status is recorded in [progress](docs/progress.md); a workflow file alone is not a passing run.
 
 Record counts cannot establish a bus trip's delay probability or rank route reliability: this source has no scheduled/operated-trip denominator. Recorded delay minutes describe delay to the following bus's schedule. They are not passenger-minutes lost. This is historical data, not live arrivals.
 
@@ -86,6 +86,24 @@ For frontend development, run `npm --prefix web run dev` in a second terminal; V
 - Typed read-only endpoints for route search, summaries, patterns, bounded record pagination and public data health. Browser requests pin the selected snapshot across charts and pages.
 - A responsive charcoal/off-white/amber explorer with URL filters/history, keyboard route submission, source-row flags, chart data tables, explicit empty/partial/failure states and data health/about pages.
 - pytest validation/download/API tests and PostgreSQL integration scenarios; GitHub Actions includes frontend build and isolated desktop/mobile browser cases. Remote CI has not run.
+- Consistent logical backups, a scratch-database restore verifier, explicit API-only database grants and measured PostgreSQL query plans. A manual/opt-in weekly source-check workflow preserves previous good data on failure.
+- Home Screen manifest/icons and iPhone installation guidance. The phone view requires a network connection; no native App Store release is claimed.
+
+## How the pieces fit
+
+```mermaid
+flowchart LR
+  TTC[Official CSV and code lookup] --> Import[Python validation and versioned import]
+  Import --> DB[(PostgreSQL snapshots and provenance)]
+  DB --> API[Read-only FastAPI reporting API]
+  API --> Web[React explorer and iPhone Home Screen web app]
+  DB --> Backup[Private logical backup and restore verification]
+```
+
+The importer writes; the public API only reads. A corrected cumulative file replaces
+the active snapshot atomically while older versions and identical-looking source
+rows remain available. The browser pins a snapshot across its summary, charts and
+record pages so a refresh cannot mix versions in one view.
 
 ## Read the evidence and decisions
 
@@ -97,6 +115,8 @@ For frontend development, run `npm --prefix web run dev` in a second terminal; V
 | [Decisions](docs/decisions.md) | Why snapshots, PostgreSQL, row positions and a pinned lookup |
 | [Metrics](docs/metrics.md) | Report meanings, zero/missing handling and limitations |
 | [Runbook](docs/runbook.md) | Setup, commands, recovery and reproduction |
+| [Operations](docs/operations.md) | Manual/weekly source checks, verified restore drill and measured query plans |
+| [Website/iPhone release](docs/deployment.md) | Container, credential boundaries, current host limits and release steps |
 | [Original project plan](docs/project-plan.md) | Chosen scope and later phases |
 
 ## Attribution

@@ -1,6 +1,7 @@
 # Report definitions
 
-The current report is a CLI/SQL slice. The later API and dashboard must retain these definitions.
+The SQL report, API and dashboard share these definitions. CLI examples return ten
+source rows; the browser uses a separate bounded pagination query.
 
 | Output | Definition |
 | --- | --- |

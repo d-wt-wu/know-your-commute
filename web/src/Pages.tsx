@@ -357,6 +357,20 @@ export function About() {
           </p>
         </div>
       </section>
+      <section className="about-source" id="iphone">
+        <span className="section-number">07</span>
+        <div>
+          <h2>Keep the explorer on your iPhone</h2>
+          <p>
+            Open this website in Safari, tap Share, then Add to Home Screen. If shown, leave Open as
+            Web App enabled and tap Add. The icon opens the same explorer in its own window.
+          </p>
+          <p>
+            An internet connection is required to load records. This app does not store a copy of
+            the dataset on your phone or provide live arrivals.
+          </p>
+        </div>
+      </section>
     </>
   )
 }

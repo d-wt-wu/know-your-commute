@@ -1,0 +1,28 @@
+{
+  "checked_at": "2026-11-05T22:56:14.329527+00:00",
+  "machine": "macOS-26.6.2-arm64-arm-64bit",
+  "python": {
+    "tests": 68,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "browser": {
+    "tests": 8,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "frontend": "TypeScript and Vite production build passed",
+  "deployment_smoke": {
+    "environment": "local real-source server",
+    "expected_and_observed_route_102_january_records": 65,
+    "root_manifest_pngs_api_cache_and_json_404s": "passed"
+  },
+  "backup_restore_evidence": "backup-restore.json",
+  "query_plan_evidence": "query-measurements.json",
+  "remote_ci": "not yet verified",
+  "container_build": "not locally run; Docker absent; remote CI configured",
+  "physical_iphone_installation": "not yet verified",
+  "production_hosting": "not provisioned"
+}

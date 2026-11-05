@@ -1215,3 +1215,16 @@ dd small {
     font-size: 22px;
   }
 }
+@media (max-width: 640px) {
+  .filter-panel input,
+  .sort-label select {
+    font-size: 16px;
+    min-height: 44px;
+  }
+  .page-button,
+  .button,
+  .text-button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}

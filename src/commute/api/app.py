@@ -55,7 +55,12 @@ def create_app(engine=None, web_dir: Path | None = None):
             keys = [key for key, value in request.query_params.multi_items()]
             if len(keys) != len(set(keys)):
                 return error(422, "invalid_filters", "Each query parameter may appear only once.")
-        return await call_next(request)
+        response = await call_next(request)
+        if request.url.path.startswith("/api/"):
+            response.headers["Cache-Control"] = "no-store"
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+        return response
 
     @app.exception_handler(RequestValidationError)
     async def invalid_request(request, exc):
@@ -125,6 +130,15 @@ def create_app(engine=None, web_dir: Path | None = None):
         @app.get("/favicon.svg", include_in_schema=False)
         def favicon():
             return FileResponse(directory / "favicon.svg")
+
+        def asset_handler(name):
+            def serve():
+                return FileResponse(directory / name, headers={"Cache-Control": "no-cache"})
+            return serve
+
+        for name in ("manifest.webmanifest", "apple-touch-icon.png", "icon-192.png", "icon-512.png"):
+            if (directory / name).is_file():
+                app.add_api_route("/" + name, asset_handler(name), include_in_schema=False)
 
         @app.get("/", include_in_schema=False)
         @app.get("/data-health", include_in_schema=False)

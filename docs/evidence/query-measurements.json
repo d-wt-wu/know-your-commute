@@ -1,0 +1,190 @@
+{
+  "measured_at": "2026-11-05T22:45:36.839734+00:00",
+  "conditions": "Local existing PostgreSQL server; existing data/cache; first call and five repeated calls on one connection. No true cold-cache measurement.",
+  "cases": {
+    "route_102_january_2025": {
+      "filters": {
+        "route": "102",
+        "start": "2025-01-01",
+        "end": "2025-01-31"
+      },
+      "reported_records": 65,
+      "first_call_ms": 4.537,
+      "repeated_call_ms": [
+        0.483,
+        0.429,
+        0.399,
+        0.38,
+        0.544
+      ],
+      "repeated_median_ms": 0.429,
+      "explain": {
+        "Plan": {
+          "Node Type": "Aggregate",
+          "Strategy": "Plain",
+          "Partial Mode": "Simple",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Startup Cost": 137.43,
+          "Total Cost": 137.44,
+          "Plan Rows": 1,
+          "Plan Width": 88,
+          "Actual Startup Time": 0.054,
+          "Actual Total Time": 0.055,
+          "Actual Rows": 1,
+          "Actual Loops": 1,
+          "Shared Hit Blocks": 46,
+          "Shared Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Local Dirtied Blocks": 0,
+          "Local Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0,
+          "Plans": [
+            {
+              "Node Type": "Index Scan",
+              "Parent Relationship": "Outer",
+              "Parallel Aware": false,
+              "Async Capable": false,
+              "Scan Direction": "Forward",
+              "Index Name": "ix_delay_route_date",
+              "Relation Name": "delay_records",
+              "Alias": "delay_records",
+              "Startup Cost": 0.42,
+              "Total Cost": 135.05,
+              "Plan Rows": 73,
+              "Plan Width": 33,
+              "Actual Startup Time": 0.007,
+              "Actual Total Time": 0.03,
+              "Actual Rows": 65,
+              "Actual Loops": 1,
+              "Index Cond": "((snapshot_id = '683ca275-a2a9-4380-8ce6-36a0c840a384'::uuid) AND (route_identifier = '102'::text) AND (report_date >= '2025-01-01'::date) AND (report_date <= '2025-01-31'::date))",
+              "Rows Removed by Index Recheck": 0,
+              "Shared Hit Blocks": 46,
+              "Shared Read Blocks": 0,
+              "Shared Dirtied Blocks": 0,
+              "Shared Written Blocks": 0,
+              "Local Hit Blocks": 0,
+              "Local Read Blocks": 0,
+              "Local Dirtied Blocks": 0,
+              "Local Written Blocks": 0,
+              "Temp Read Blocks": 0,
+              "Temp Written Blocks": 0
+            }
+          ]
+        },
+        "Planning": {
+          "Shared Hit Blocks": 0,
+          "Shared Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Local Dirtied Blocks": 0,
+          "Local Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "Planning Time": 0.06,
+        "Triggers": [],
+        "Execution Time": 0.072
+      }
+    },
+    "all_loaded_records": {
+      "filters": {
+        "route": null,
+        "start": "2025-01-01",
+        "end": "2026-09-30"
+      },
+      "reported_records": 107349,
+      "first_call_ms": 37.991,
+      "repeated_call_ms": [
+        23.286,
+        18.729,
+        16.118,
+        16.329,
+        15.3
+      ],
+      "repeated_median_ms": 16.329,
+      "explain": {
+        "Plan": {
+          "Node Type": "Aggregate",
+          "Strategy": "Plain",
+          "Partial Mode": "Simple",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Startup Cost": 7497.94,
+          "Total Cost": 7497.95,
+          "Plan Rows": 1,
+          "Plan Width": 88,
+          "Actual Startup Time": 15.727,
+          "Actual Total Time": 15.727,
+          "Actual Rows": 1,
+          "Actual Loops": 1,
+          "Shared Hit Blocks": 2131,
+          "Shared Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Local Dirtied Blocks": 0,
+          "Local Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0,
+          "Plans": [
+            {
+              "Node Type": "Seq Scan",
+              "Parent Relationship": "Outer",
+              "Parallel Aware": false,
+              "Async Capable": false,
+              "Relation Name": "delay_records",
+              "Alias": "delay_records",
+              "Startup Cost": 0.0,
+              "Total Cost": 4009.61,
+              "Plan Rows": 107333,
+              "Plan Width": 33,
+              "Actual Startup Time": 0.002,
+              "Actual Total Time": 4.972,
+              "Actual Rows": 107349,
+              "Actual Loops": 1,
+              "Filter": "((report_date >= '2025-01-01'::date) AND (report_date <= '2026-09-30'::date) AND (snapshot_id = '683ca275-a2a9-4380-8ce6-36a0c840a384'::uuid))",
+              "Rows Removed by Filter": 0,
+              "Shared Hit Blocks": 2131,
+              "Shared Read Blocks": 0,
+              "Shared Dirtied Blocks": 0,
+              "Shared Written Blocks": 0,
+              "Local Hit Blocks": 0,
+              "Local Read Blocks": 0,
+              "Local Dirtied Blocks": 0,
+              "Local Written Blocks": 0,
+              "Temp Read Blocks": 0,
+              "Temp Written Blocks": 0
+            }
+          ]
+        },
+        "Planning": {
+          "Shared Hit Blocks": 0,
+          "Shared Read Blocks": 0,
+          "Shared Dirtied Blocks": 0,
+          "Shared Written Blocks": 0,
+          "Local Hit Blocks": 0,
+          "Local Read Blocks": 0,
+          "Local Dirtied Blocks": 0,
+          "Local Written Blocks": 0,
+          "Temp Read Blocks": 0,
+          "Temp Written Blocks": 0
+        },
+        "Planning Time": 0.032,
+        "Triggers": [],
+        "Execution Time": 15.733
+      }
+    }
+  },
+  "server_version": "17.11",
+  "database_bytes": 79402675,
+  "snapshot_id": "683ca275-a2a9-4380-8ce6-36a0c840a384",
+  "accepted_records": 107349
+}

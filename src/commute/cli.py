@@ -9,6 +9,8 @@ import httpx
 from sqlalchemy.exc import SQLAlchemyError
 
 from commute.db.connection import database_engine
+from commute.db.backup import BackupError, create_backup, restore_check
+from commute.db.explorer import health as public_health
 from commute.db.reports import data_health, route_report
 from commute.ingest.fetch import DownloadSession, load_manifest_file
 from commute.ingest.pipeline import ImportFailed, import_resource
@@ -32,7 +34,12 @@ def main():
     report.add_argument("--route", help="Exact derived identifier, e.g. 102 or 102D; omit for all records")
     report.add_argument("--start", type=date.fromisoformat, required=True)
     report.add_argument("--end", type=date.fromisoformat, required=True)
-    commands.add_parser("data-health", help="Show latest attempt, last success and active snapshot separately")
+    health = commands.add_parser("data-health", help="Show latest attempt, last success and active snapshot separately")
+    health.add_argument("--public", action="store_true", help="Use the public projection, excluding internal diagnostics")
+    backup = commands.add_parser("backup", help="Create a consistent PostgreSQL dump and table checksums")
+    backup.add_argument("--directory", type=Path, default=Path("data/backups"))
+    restore = commands.add_parser("restore-check", help="Verify a trusted backup in a new temporary database, then remove it")
+    restore.add_argument("--manifest", type=Path, required=True)
     args = parser.parse_args()
     engine, downloads = None, None
     try:
@@ -56,13 +63,17 @@ def main():
                 emit({"manifest": str(downloads.write_manifest())})
         elif args.command == "report":
             emit(route_report(engine, args.route, args.start, args.end))
+        elif args.command == "backup":
+            emit({"status": "backed_up", "manifest": str(create_backup(engine, args.directory))})
+        elif args.command == "restore-check":
+            emit(restore_check(engine, args.manifest))
         else:
-            emit(data_health(engine))
+            emit(public_health(engine) if args.public else data_health(engine))
         return 0
     except ImportFailed as exc:
         emit({"status": "failed", "run_id": str(exc.run_id), "error_code": exc.code, "message": str(exc)})
         return 1
-    except (ValueError, OSError) as exc:
+    except (ValueError, OSError, BackupError) as exc:
         print(f"Error: {exc}", file=sys.stderr)
         return 2
     except httpx.HTTPError:

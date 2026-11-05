@@ -1,0 +1,46 @@
+{
+  "status": "verified",
+  "archive_sha256": "29b4e07148aca61d56f5c8c1829633bd8e13edbeac0d94c59fd8d68b8e8b487b",
+  "fingerprints": {
+    "alembic_version": {
+      "rows": 1,
+      "sha256": "c1b18f01afbb5b25fecdad34085d0747d40a24372c1cdf2210fbdc1672a078ae"
+    },
+    "delay_records": {
+      "rows": 107349,
+      "sha256": "93f9acbb5c323f2dc3e8761fc9ba9e7824b3b987d04a07d23f8eb83bbb439c33"
+    },
+    "import_runs": {
+      "rows": 4,
+      "sha256": "f16d094ea5fb933d8a6b6ba89ed43d949ead5a467332d58809b28da350ebd60d"
+    },
+    "incident_codes": {
+      "rows": 46,
+      "sha256": "5fb1be179599e3362ce44b272a02e8ebf7bc550bd3efb6368774c1ab27cd757e"
+    },
+    "raw_records": {
+      "rows": 107395,
+      "sha256": "3eb2f92d2320395014f5ec3908624d4eca0b809ca9253660354386803cd4f33f"
+    },
+    "rejected_records": {
+      "rows": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "source_resources": {
+      "rows": 2,
+      "sha256": "2052fa51a567ad1849ea08a5d06f2b6ea979e43081b57c4f594a9212378062ca"
+    },
+    "source_snapshots": {
+      "rows": 2,
+      "sha256": "12071372247157907ecf4c2b3e8e2e0fdef927a9f02a47a15f2e9a49c23e2e09"
+    }
+  },
+  "scratch_database_removed": true,
+  "checked_at": "2026-11-05T22:50:54.171992+00:00",
+  "backup_seconds": 1.526,
+  "restore_verify_seconds": 2.22,
+  "archive_bytes": 54611555,
+  "live_report_unchanged": true,
+  "route_102_january_records": 65,
+  "conditions": "Local running PostgreSQL 17.11; custom dump without compression; fresh scratch database; all application table rows hashed at exported snapshot."
+}

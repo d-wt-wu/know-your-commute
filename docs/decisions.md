@@ -2,9 +2,9 @@
 
 ## 1 — Finish the data workflow before the dashboard
 
-Keep the selected TTC project and the original plan. The current milestone is an import plus a SQL report. FastAPI, React/TypeScript/Vite and the charcoal/off-white/amber dashboard follow once database tests pass. No portfolio edits, hosting registrations, domain work or purchases are part of this slice.
+Keep the selected TTC project and the original plan. The import and SQL report passed first; the tested FastAPI layer and charcoal/off-white/amber React dashboard followed. No portfolio edits, hosting registrations, domain work or purchases are part of these local milestones.
 
-The available system Python is 3.10, but a usable Python 3.13 is installed under Anaconda. This project uses its own 3.13 virtual environment and a committed uv lockfile; it does not change the shared Anaconda environment. SQLAlchemy Core 2.1.8, Alembic 1.20.1 and psycopg 3.3.8 resolved during setup. FastAPI/frontend dependencies will be locked when their phases begin.
+The available system Python is 3.10, but a usable Python 3.13 is installed under Anaconda. This project uses its own 3.13 virtual environment and a committed uv lockfile; it does not change the shared Anaconda environment. SQLAlchemy Core 2.1.8, Alembic 1.20.1 and psycopg 3.3.8 resolved during setup. FastAPI 0.162.0, Pydantic 2.14.3 and uvicorn 0.54.0 were added for the API. React 19.3.1, Vite 8.3.6, React Router and Recharts are locked in the frontend package lockfile. React Router supplies URL/history behaviour; Recharts is the single chart library.
 
 ## 2 — PostgreSQL stays the database
 
@@ -47,3 +47,19 @@ Commit small attributed fixtures, hashes, a profile, tests and documentation. Ig
 The first PostgreSQL run applied and round-tripped the migration, then exposed a lookup-loading bug: passing SQLAlchemy's result object directly to `dict()` followed an unsupported mapping path. Explicitly unpacking the `(code, description)` rows fixed it. All 43 tests then passed, including the 20 database cases. This is a concrete example of why passing parser unit tests did not establish that the database workflow worked.
 
 The subsequent first real import and identical rerun are measured in `docs/evidence/phase1-checks.json`. These are single local observations with an already running server, not controlled performance benchmarks or user-impact claims.
+
+## 10 — Keep a view stable across HTTP requests
+
+A read-only transaction stabilizes one response, but cannot stabilize separate summary, chart and pagination requests by itself. Each reporting response therefore returns a snapshot ID. The browser gets the summary first and pins that ID for patterns/records and subsequent pages. A new filter or explicit source check can select the current active import. The API also allows exact snapshot reproduction independently from the browser's filter-only share URL.
+
+The public response models are deliberately smaller than internal import/health dictionaries. They expose meaningful provenance and safe statuses while excluding raw failure traces, private paths and request headers. API errors were tested with secret-looking exception text to ensure it did not reach the response.
+
+## 11 — Let source uncertainty shape the interface
+
+The dashboard plots observed daily counts and source causes, provides chart data tables and keeps quality flags inspectable on source rows. It does not invent zero-count periods, reliability scores, route-name mappings or an hour heatmap while overnight/timezone semantics remain unconfirmed. Source-wide quality and matching-row quality are labelled separately.
+
+Date inputs submit their displayed values through FormData. Browser QA caught that relying only on draft React state could lose an accessibility-driven date edit. Pagination keeps existing content and button focus during a page fetch, avoiding a scroll jump caused by removing the whole result view. Multi-year labels include both years. These are browser-level behaviours that API-only tests could not establish.
+
+## 12 — Separate real-source QA from synthetic browser CI
+
+Local browser verification used the real PostgreSQL import and independently checked route/date totals. The prepared Playwright CI suite uses an explicitly labelled synthetic 40-row fixture in `commute_browser_test`; its seeding command refuses any other database name. No test fixture replaces the main `commute` database. Six desktop/mobile browser cases were collected successfully, but their headless execution and remote CI run are not claimed. The actual local UI journeys were exercised through the app's browser-control tools.

@@ -1,0 +1,1512 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Know Your Commute API",
+    "description": "Historical reported TTC bus delay records. Counts are not trip-level delay probabilities.",
+    "version": "0.2.0"
+  },
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "summary": "Process Health",
+        "operationId": "process_health_api_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ready": {
+      "get": {
+        "summary": "Database Ready",
+        "operationId": "database_ready_api_v1_ready_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/routes": {
+      "get": {
+        "summary": "Route List",
+        "operationId": "route_list_api_v1_routes_get",
+        "parameters": [
+          {
+            "name": "route",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 100
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Route"
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Start"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End"
+            }
+          },
+          {
+            "name": "snapshot_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Snapshot Id"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 80
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Q"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoutesResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/summary": {
+      "get": {
+        "summary": "Summary",
+        "operationId": "summary_api_v1_summary_get",
+        "parameters": [
+          {
+            "name": "route",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 100
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Route"
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Start"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End"
+            }
+          },
+          {
+            "name": "snapshot_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Snapshot Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SummaryResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/patterns": {
+      "get": {
+        "summary": "Patterns",
+        "operationId": "patterns_api_v1_patterns_get",
+        "parameters": [
+          {
+            "name": "route",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 100
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Route"
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Start"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End"
+            }
+          },
+          {
+            "name": "snapshot_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Snapshot Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatternsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/records": {
+      "get": {
+        "summary": "Records",
+        "operationId": "records_api_v1_records_get",
+        "parameters": [
+          {
+            "name": "route",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 100
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Route"
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Start"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End"
+            }
+          },
+          {
+            "name": "snapshot_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Snapshot Id"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 10000,
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 25,
+              "title": "Page Size"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "date_desc",
+                "date_asc"
+              ],
+              "type": "string",
+              "default": "date_desc",
+              "title": "Sort"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecordsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/data-health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_api_v1_data_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataHealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AppliedFilters": {
+        "properties": {
+          "route": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Route"
+          },
+          "start": {
+            "type": "string",
+            "format": "date",
+            "title": "Start"
+          },
+          "end": {
+            "type": "string",
+            "format": "date",
+            "title": "End"
+          },
+          "date_bounds": {
+            "type": "string",
+            "const": "inclusive",
+            "title": "Date Bounds",
+            "default": "inclusive"
+          }
+        },
+        "type": "object",
+        "required": [
+          "route",
+          "start",
+          "end"
+        ],
+        "title": "AppliedFilters"
+      },
+      "Attempt": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "running",
+              "succeeded",
+              "no_change",
+              "reactivated",
+              "failed",
+              "interrupted"
+            ],
+            "title": "Status"
+          },
+          "started_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Started At"
+          },
+          "finished_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Finished At"
+          },
+          "snapshot_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Snapshot Id"
+          },
+          "issue": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Issue"
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "started_at",
+          "finished_at",
+          "snapshot_id",
+          "issue",
+          "message"
+        ],
+        "title": "Attempt"
+      },
+      "CauseCount": {
+        "properties": {
+          "incident_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Incident Code"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "mapping_status": {
+            "type": "string",
+            "enum": [
+              "mapped",
+              "unmapped"
+            ],
+            "title": "Mapping Status"
+          },
+          "reported_records": {
+            "type": "integer",
+            "title": "Reported Records"
+          }
+        },
+        "type": "object",
+        "required": [
+          "incident_code",
+          "description",
+          "mapping_status",
+          "reported_records"
+        ],
+        "title": "CauseCount"
+      },
+      "Context": {
+        "properties": {
+          "snapshot": {
+            "$ref": "#/components/schemas/PublicSnapshot"
+          },
+          "filters": {
+            "$ref": "#/components/schemas/AppliedFilters"
+          },
+          "coverage": {
+            "$ref": "#/components/schemas/Coverage"
+          },
+          "extends_beyond_loaded_dates": {
+            "type": "boolean",
+            "title": "Extends Beyond Loaded Dates"
+          }
+        },
+        "type": "object",
+        "required": [
+          "snapshot",
+          "filters",
+          "coverage",
+          "extends_beyond_loaded_dates"
+        ],
+        "title": "Context"
+      },
+      "Coverage": {
+        "properties": {
+          "start": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start"
+          },
+          "end": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End"
+          },
+          "meaning": {
+            "type": "string",
+            "title": "Meaning",
+            "default": "Observed record dates; completeness of disruption reporting is not established."
+          }
+        },
+        "type": "object",
+        "required": [
+          "start",
+          "end"
+        ],
+        "title": "Coverage"
+      },
+      "DailyCount": {
+        "properties": {
+          "report_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Report Date"
+          },
+          "reported_records": {
+            "type": "integer",
+            "title": "Reported Records"
+          }
+        },
+        "type": "object",
+        "required": [
+          "report_date",
+          "reported_records"
+        ],
+        "title": "DailyCount"
+      },
+      "DataHealthResponse": {
+        "properties": {
+          "resources": {
+            "items": {
+              "$ref": "#/components/schemas/ResourceHealth"
+            },
+            "type": "array",
+            "title": "Resources"
+          },
+          "attribution": {
+            "type": "string",
+            "title": "Attribution"
+          },
+          "licence_url": {
+            "type": "string",
+            "title": "Licence Url"
+          },
+          "independent_project": {
+            "type": "string",
+            "title": "Independent Project"
+          }
+        },
+        "type": "object",
+        "required": [
+          "resources",
+          "attribution",
+          "licence_url",
+          "independent_project"
+        ],
+        "title": "DataHealthResponse"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "PatternsResponse": {
+        "properties": {
+          "context": {
+            "$ref": "#/components/schemas/Context"
+          },
+          "daily_records": {
+            "items": {
+              "$ref": "#/components/schemas/DailyCount"
+            },
+            "type": "array",
+            "title": "Daily Records"
+          },
+          "causes": {
+            "items": {
+              "$ref": "#/components/schemas/CauseCount"
+            },
+            "type": "array",
+            "title": "Causes"
+          },
+          "calendar_weekdays": {
+            "items": {
+              "$ref": "#/components/schemas/WeekdayCount"
+            },
+            "type": "array",
+            "title": "Calendar Weekdays"
+          },
+          "missing_dates_meaning": {
+            "type": "string",
+            "title": "Missing Dates Meaning"
+          },
+          "time_analysis_note": {
+            "type": "string",
+            "title": "Time Analysis Note"
+          }
+        },
+        "type": "object",
+        "required": [
+          "context",
+          "daily_records",
+          "causes",
+          "calendar_weekdays",
+          "missing_dates_meaning",
+          "time_analysis_note"
+        ],
+        "title": "PatternsResponse"
+      },
+      "PublicSnapshot": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "resource_id": {
+            "type": "string",
+            "title": "Resource Id"
+          },
+          "content_sha256": {
+            "type": "string",
+            "title": "Content Sha256"
+          },
+          "lookup_snapshot_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lookup Snapshot Id"
+          },
+          "source_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Url"
+          },
+          "dataset_url": {
+            "type": "string",
+            "title": "Dataset Url"
+          },
+          "source_last_modified": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Last Modified"
+          },
+          "source_metadata_modified": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Metadata Modified"
+          },
+          "retrieved_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Retrieved At"
+          },
+          "imported_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Imported At"
+          },
+          "parser_version": {
+            "type": "string",
+            "title": "Parser Version"
+          },
+          "contract_version": {
+            "type": "string",
+            "title": "Contract Version"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "resource_id",
+          "content_sha256",
+          "lookup_snapshot_id",
+          "source_url",
+          "dataset_url",
+          "source_last_modified",
+          "source_metadata_modified",
+          "retrieved_at",
+          "imported_at",
+          "parser_version",
+          "contract_version"
+        ],
+        "title": "PublicSnapshot"
+      },
+      "Quality": {
+        "properties": {
+          "scope": {
+            "type": "string",
+            "enum": [
+              "entire_active_delay_snapshot",
+              "entire_selected_snapshot"
+            ],
+            "title": "Scope",
+            "default": "entire_selected_snapshot"
+          },
+          "raw_count": {
+            "type": "integer",
+            "title": "Raw Count"
+          },
+          "accepted_count": {
+            "type": "integer",
+            "title": "Accepted Count"
+          },
+          "rejected_count": {
+            "type": "integer",
+            "title": "Rejected Count"
+          },
+          "warning_record_count": {
+            "type": "integer",
+            "title": "Warning Record Count"
+          },
+          "warning_counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Warning Counts"
+          },
+          "extra_columns": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Extra Columns"
+          }
+        },
+        "type": "object",
+        "required": [
+          "raw_count",
+          "accepted_count",
+          "rejected_count",
+          "warning_record_count",
+          "warning_counts",
+          "extra_columns"
+        ],
+        "title": "Quality"
+      },
+      "Record": {
+        "properties": {
+          "row_number": {
+            "type": "integer",
+            "title": "Row Number"
+          },
+          "source_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Id"
+          },
+          "report_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Report Date"
+          },
+          "report_time": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Report Time"
+          },
+          "route_identifier": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Route Identifier"
+          },
+          "route_label": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Route Label"
+          },
+          "location": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Location"
+          },
+          "incident_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Incident Code"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "mapping_status": {
+            "type": "string",
+            "enum": [
+              "mapped",
+              "unmapped"
+            ],
+            "title": "Mapping Status"
+          },
+          "delay_minutes": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delay Minutes"
+          },
+          "gap_minutes": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gap Minutes"
+          },
+          "bound": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bound"
+          },
+          "quality_flags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Quality Flags"
+          }
+        },
+        "type": "object",
+        "required": [
+          "row_number",
+          "source_id",
+          "report_date",
+          "report_time",
+          "route_identifier",
+          "route_label",
+          "location",
+          "incident_code",
+          "description",
+          "mapping_status",
+          "delay_minutes",
+          "gap_minutes",
+          "bound",
+          "quality_flags"
+        ],
+        "title": "Record"
+      },
+      "RecordsResponse": {
+        "properties": {
+          "context": {
+            "$ref": "#/components/schemas/Context"
+          },
+          "records": {
+            "items": {
+              "$ref": "#/components/schemas/Record"
+            },
+            "type": "array",
+            "title": "Records"
+          },
+          "total_records": {
+            "type": "integer",
+            "title": "Total Records"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "page_size": {
+            "type": "integer",
+            "title": "Page Size"
+          },
+          "total_pages": {
+            "type": "integer",
+            "title": "Total Pages"
+          },
+          "sort": {
+            "type": "string",
+            "enum": [
+              "date_desc",
+              "date_asc"
+            ],
+            "title": "Sort"
+          }
+        },
+        "type": "object",
+        "required": [
+          "context",
+          "records",
+          "total_records",
+          "page",
+          "page_size",
+          "total_pages",
+          "sort"
+        ],
+        "title": "RecordsResponse"
+      },
+      "ResourceHealth": {
+        "properties": {
+          "resource_id": {
+            "type": "string",
+            "title": "Resource Id"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "delays",
+              "codes"
+            ],
+            "title": "Kind"
+          },
+          "latest_attempt": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Attempt"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "last_successful_attempt": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Attempt"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "active_snapshot": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PublicSnapshot"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "coverage": {
+            "$ref": "#/components/schemas/Coverage"
+          },
+          "quality": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Quality"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "resource_id",
+          "kind",
+          "latest_attempt",
+          "last_successful_attempt",
+          "active_snapshot",
+          "coverage",
+          "quality"
+        ],
+        "title": "ResourceHealth"
+      },
+      "RouteEntry": {
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "title": "Identifier"
+          },
+          "labels": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Labels"
+          },
+          "reported_records": {
+            "type": "integer",
+            "title": "Reported Records"
+          },
+          "first_date": {
+            "type": "string",
+            "format": "date",
+            "title": "First Date"
+          },
+          "last_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Last Date"
+          }
+        },
+        "type": "object",
+        "required": [
+          "identifier",
+          "labels",
+          "reported_records",
+          "first_date",
+          "last_date"
+        ],
+        "title": "RouteEntry"
+      },
+      "RoutesResponse": {
+        "properties": {
+          "context": {
+            "$ref": "#/components/schemas/Context"
+          },
+          "routes": {
+            "items": {
+              "$ref": "#/components/schemas/RouteEntry"
+            },
+            "type": "array",
+            "title": "Routes"
+          },
+          "unassigned_route_records": {
+            "type": "integer",
+            "title": "Unassigned Route Records"
+          }
+        },
+        "type": "object",
+        "required": [
+          "context",
+          "routes",
+          "unassigned_route_records"
+        ],
+        "title": "RoutesResponse"
+      },
+      "Statistics": {
+        "properties": {
+          "reported_records": {
+            "type": "integer",
+            "title": "Reported Records"
+          },
+          "valid_delay_samples": {
+            "type": "integer",
+            "title": "Valid Delay Samples"
+          },
+          "zero_delay_samples": {
+            "type": "integer",
+            "title": "Zero Delay Samples"
+          },
+          "median_recorded_delay_minutes": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Median Recorded Delay Minutes"
+          },
+          "mean_recorded_delay_minutes": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mean Recorded Delay Minutes"
+          },
+          "valid_gap_samples": {
+            "type": "integer",
+            "title": "Valid Gap Samples"
+          },
+          "flagged_records": {
+            "type": "integer",
+            "title": "Flagged Records"
+          },
+          "first_matching_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "First Matching Date"
+          },
+          "last_matching_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Matching Date"
+          }
+        },
+        "type": "object",
+        "required": [
+          "reported_records",
+          "valid_delay_samples",
+          "zero_delay_samples",
+          "median_recorded_delay_minutes",
+          "mean_recorded_delay_minutes",
+          "valid_gap_samples",
+          "flagged_records",
+          "first_matching_date",
+          "last_matching_date"
+        ],
+        "title": "Statistics"
+      },
+      "SummaryResponse": {
+        "properties": {
+          "context": {
+            "$ref": "#/components/schemas/Context"
+          },
+          "summary": {
+            "$ref": "#/components/schemas/Statistics"
+          },
+          "quality": {
+            "$ref": "#/components/schemas/Quality"
+          },
+          "definitions": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Definitions"
+          }
+        },
+        "type": "object",
+        "required": [
+          "context",
+          "summary",
+          "quality",
+          "definitions"
+        ],
+        "title": "SummaryResponse"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "WeekdayCount": {
+        "properties": {
+          "iso_weekday": {
+            "type": "integer",
+            "title": "Iso Weekday"
+          },
+          "reported_records": {
+            "type": "integer",
+            "title": "Reported Records"
+          }
+        },
+        "type": "object",
+        "required": [
+          "iso_weekday",
+          "reported_records"
+        ],
+        "title": "WeekdayCount"
+      }
+    }
+  }
+}

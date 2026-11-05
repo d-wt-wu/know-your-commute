@@ -1,0 +1,284 @@
+{
+  "context": {
+    "snapshot": {
+      "id": "683ca275-a2a9-4380-8ce6-36a0c840a384",
+      "resource_id": "ttc-bus-since-2025",
+      "content_sha256": "2bc395f3c0db59010daf42bd97dcc6f2c3006c3646f58cf2d2cd42cba6e1b1f3",
+      "lookup_snapshot_id": "0b429125-56d3-41b5-bdec-5d077b94fe14",
+      "source_url": "https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/e271cdae-8788-4980-96ce-6a5c95bc6618/resource/b5725365-9252-4bfe-b6f4-cda7ddf74341/download/ttc-bus-delay-data-since-2025.csv",
+      "dataset_url": "https://open.toronto.ca/dataset/ttc-bus-delay-data/",
+      "source_last_modified": "2026-10-26T12:32:23.781000",
+      "source_metadata_modified": "2026-10-29T14:39:25.894956",
+      "retrieved_at": "2026-11-05T07:11:04.553085Z",
+      "imported_at": "2026-11-05T20:19:53.444320Z",
+      "parser_version": "1",
+      "contract_version": "1"
+    },
+    "filters": {
+      "route": "102",
+      "start": "2025-01-01",
+      "end": "2025-01-31",
+      "date_bounds": "inclusive"
+    },
+    "coverage": {
+      "start": "2025-01-01",
+      "end": "2026-09-30",
+      "meaning": "Observed record dates; completeness of disruption reporting is not established."
+    },
+    "extends_beyond_loaded_dates": false
+  },
+  "daily_records": [
+    {
+      "report_date": "2025-01-01",
+      "reported_records": 1
+    },
+    {
+      "report_date": "2025-01-02",
+      "reported_records": 2
+    },
+    {
+      "report_date": "2025-01-03",
+      "reported_records": 5
+    },
+    {
+      "report_date": "2025-01-04",
+      "reported_records": 3
+    },
+    {
+      "report_date": "2025-01-05",
+      "reported_records": 1
+    },
+    {
+      "report_date": "2025-01-06",
+      "reported_records": 3
+    },
+    {
+      "report_date": "2025-01-07",
+      "reported_records": 8
+    },
+    {
+      "report_date": "2025-01-08",
+      "reported_records": 3
+    },
+    {
+      "report_date": "2025-01-09",
+      "reported_records": 2
+    },
+    {
+      "report_date": "2025-01-10",
+      "reported_records": 3
+    },
+    {
+      "report_date": "2025-01-11",
+      "reported_records": 1
+    },
+    {
+      "report_date": "2025-01-12",
+      "reported_records": 2
+    },
+    {
+      "report_date": "2025-01-14",
+      "reported_records": 2
+    },
+    {
+      "report_date": "2025-01-15",
+      "reported_records": 3
+    },
+    {
+      "report_date": "2025-01-16",
+      "reported_records": 1
+    },
+    {
+      "report_date": "2025-01-17",
+      "reported_records": 1
+    },
+    {
+      "report_date": "2025-01-20",
+      "reported_records": 4
+    },
+    {
+      "report_date": "2025-01-21",
+      "reported_records": 3
+    },
+    {
+      "report_date": "2025-01-23",
+      "reported_records": 3
+    },
+    {
+      "report_date": "2025-01-24",
+      "reported_records": 2
+    },
+    {
+      "report_date": "2025-01-25",
+      "reported_records": 1
+    },
+    {
+      "report_date": "2025-01-27",
+      "reported_records": 1
+    },
+    {
+      "report_date": "2025-01-28",
+      "reported_records": 2
+    },
+    {
+      "report_date": "2025-01-29",
+      "reported_records": 2
+    },
+    {
+      "report_date": "2025-01-30",
+      "reported_records": 3
+    },
+    {
+      "report_date": "2025-01-31",
+      "reported_records": 3
+    }
+  ],
+  "causes": [
+    {
+      "incident_code": "EFO",
+      "description": "OTHER",
+      "mapping_status": "mapped",
+      "reported_records": 16
+    },
+    {
+      "incident_code": "TFO",
+      "description": "OTHER \u00e2\u0080\u0093 SWITCH VIOLATION",
+      "mapping_status": "mapped",
+      "reported_records": 7
+    },
+    {
+      "incident_code": "MFDV",
+      "description": "ON DIVERSION",
+      "mapping_status": "mapped",
+      "reported_records": 5
+    },
+    {
+      "incident_code": "MFSH",
+      "description": "USED AS SHUTTLE BUS",
+      "mapping_status": "mapped",
+      "reported_records": 5
+    },
+    {
+      "incident_code": "EFD",
+      "description": "DOORS",
+      "mapping_status": "mapped",
+      "reported_records": 4
+    },
+    {
+      "incident_code": "TFCNO",
+      "description": "NO OPERATOR AVAILABLE",
+      "mapping_status": "mapped",
+      "reported_records": 4
+    },
+    {
+      "incident_code": "EFB",
+      "description": "BODY",
+      "mapping_status": "mapped",
+      "reported_records": 3
+    },
+    {
+      "incident_code": "EFP",
+      "description": "PROPULSION",
+      "mapping_status": "mapped",
+      "reported_records": 3
+    },
+    {
+      "incident_code": "MFSAN",
+      "description": "UNSANITARY",
+      "mapping_status": "mapped",
+      "reported_records": 3
+    },
+    {
+      "incident_code": "SFDP",
+      "description": "DISORDERLY PATRON",
+      "mapping_status": "mapped",
+      "reported_records": 3
+    },
+    {
+      "incident_code": "EFHVA",
+      "description": "HEAT / VENT / AC",
+      "mapping_status": "mapped",
+      "reported_records": 2
+    },
+    {
+      "incident_code": "EFRA",
+      "description": "RAMP ISSUES",
+      "mapping_status": "mapped",
+      "reported_records": 2
+    },
+    {
+      "incident_code": "MFTO",
+      "description": "ILL OPERATOR & NON CHARGEABLE OPERATOR ISSUES",
+      "mapping_status": "mapped",
+      "reported_records": 2
+    },
+    {
+      "incident_code": "MFESA",
+      "description": "NO OPERATOR AVAILABLE DUE TO ESA",
+      "mapping_status": "mapped",
+      "reported_records": 1
+    },
+    {
+      "incident_code": "MFO",
+      "description": "OTHER",
+      "mapping_status": "mapped",
+      "reported_records": 1
+    },
+    {
+      "incident_code": "MFUI",
+      "description": "ILL CUSTOMER - TRANSPORTED",
+      "mapping_status": "mapped",
+      "reported_records": 1
+    },
+    {
+      "incident_code": "MFWEA",
+      "description": "WEATHER RELATED",
+      "mapping_status": "mapped",
+      "reported_records": 1
+    },
+    {
+      "incident_code": "SFO",
+      "description": "OTHER",
+      "mapping_status": "mapped",
+      "reported_records": 1
+    },
+    {
+      "incident_code": "TFPD",
+      "description": "TTC COLLISION \u00e2\u0080\u0093 PROPERTY DAMAGE",
+      "mapping_status": "mapped",
+      "reported_records": 1
+    }
+  ],
+  "calendar_weekdays": [
+    {
+      "iso_weekday": 1,
+      "reported_records": 8
+    },
+    {
+      "iso_weekday": 2,
+      "reported_records": 15
+    },
+    {
+      "iso_weekday": 3,
+      "reported_records": 9
+    },
+    {
+      "iso_weekday": 4,
+      "reported_records": 11
+    },
+    {
+      "iso_weekday": 5,
+      "reported_records": 14
+    },
+    {
+      "iso_weekday": 6,
+      "reported_records": 5
+    },
+    {
+      "iso_weekday": 7,
+      "reported_records": 3
+    }
+  ],
+  "missing_dates_meaning": "Only dates with matching records are returned; absent dates are not asserted zero.",
+  "time_analysis_note": "Weekdays derive from recorded Date. Timezone and overnight service rules remain unconfirmed; no hour heatmap is supplied."
+}

@@ -1,0 +1,20 @@
+{
+  "checked_at": "2026-11-05T22:08:25.883754+00:00",
+  "python_tests": {
+    "passed": 63,
+    "skipped": 0,
+    "failed": 0
+  },
+  "api_database_cases": 20,
+  "known_dependency_warning": "The pinned Starlette test client warns that its httpx compatibility transport is deprecated; checks currently pass.",
+  "actual_http": {
+    "route_102_january_records": 65,
+    "duration_samples": 65,
+    "median_recorded_minutes": 20,
+    "page_2_rows": 25,
+    "same_snapshot_for_summary_patterns_and_records": true,
+    "public_health_excludes_raw_diagnostics": true,
+    "root_http_status": 200,
+    "missing_api_status": 404
+  }
+}

@@ -2,7 +2,7 @@
 
 An independent project by **Wentao Wu** for exploring historical reported TTC bus delay records. The first slice is a Python/PostgreSQL data workflow: preserve the source, validate it, replace cumulative snapshots safely, and answer route/date questions with SQL.
 
-**Status:** Phases 0–1 verified against PostgreSQL 17.11: **43 tests passed**, including 20 database integration cases. The real source imported 107,349 records; an identical rerun reused the active snapshot. Route 102 for January 2025 matched an independent CSV calculation. See [progress](docs/progress.md) and [verification evidence](docs/evidence/phase1-checks.json). The FastAPI API and React dashboard are the next phases. There is no deployed app or public repository yet.
+**Status:** Phases 0–3 work locally: a verified PostgreSQL importer, a typed FastAPI API and a React/TypeScript dashboard using real records. **63 Python tests passed**, including the new API cases. Desktop/mobile browser flows were verified against the real source. Browser CI cases are prepared and collected, but have not been executed on GitHub. There is no public deployment or remote repository yet. See [progress](docs/progress.md) and [API contract](docs/api.md).
 
 Record counts cannot establish a bus trip's delay probability or rank route reliability: this source has no scheduled/operated-trip denominator. Recorded delay minutes describe delay to the following bus's schedule. They are not passenger-minutes lost. This is historical data, not live arrivals.
 
@@ -54,6 +54,28 @@ This example path is a placeholder, not a created file. Use the path returned by
 
 See [the runbook](docs/runbook.md) for failure recovery, archived downloads and the existing local source bundle. Integration tests refuse cleanup unless `TEST_DATABASE_URL` names a database ending in `_test`. CI requires those tests to run; a missing URL cannot silently pass the database gate there.
 
+## Open the app
+
+The current checkout already has a built frontend and a loaded local database. Start the app with:
+
+```sh
+.venv/bin/python scripts/run_local.py
+```
+
+Open [the local explorer](http://127.0.0.1:8000/). The helper binds only to loopback and serves both the built frontend and API. Stop it with Ctrl+C. The app does not import data on visitor requests.
+
+For a fresh checkout, after the Python/database setup and real import above:
+
+```sh
+npm --prefix web ci
+npm --prefix web run build
+.venv/bin/python scripts/run_local.py
+```
+
+For frontend development, run `npm --prefix web run dev` in a second terminal; Vite proxies `/api` to the API on port 8000. Node 22.17.1 was used locally. JavaScript dependencies are locked in `web/package-lock.json`.
+
+![Verified local explorer](docs/screenshots/explorer-desktop.jpg)
+
 ## What is implemented
 
 - CSV contract verified against the official 2025-onward CSV, the older README and the independently versioned lookup.
@@ -61,7 +83,9 @@ See [the runbook](docs/runbook.md) for failure recovery, archived downloads and 
 - SQLAlchemy Core tables and a frozen Alembic migration for resources, snapshots, attempts, raw rows, typed rows, rejects and code descriptions.
 - Audited imports with per-resource locks, checksums, parser/contract versions, pinned lookup versions and atomic active-snapshot replacement.
 - SQL route/date totals, duration sample counts, daily counts, causes and traceable examples. Queries use bound values and one consistent snapshot.
-- pytest validation/download tests and PostgreSQL integration scenarios; a GitHub Actions workflow is prepared locally.
+- Typed read-only endpoints for route search, summaries, patterns, bounded record pagination and public data health. Browser requests pin the selected snapshot across charts and pages.
+- A responsive charcoal/off-white/amber explorer with URL filters/history, keyboard route submission, source-row flags, chart data tables, explicit empty/partial/failure states and data health/about pages.
+- pytest validation/download/API tests and PostgreSQL integration scenarios; GitHub Actions includes frontend build and isolated desktop/mobile browser cases. Remote CI has not run.
 
 ## Read the evidence and decisions
 

@@ -1,0 +1,69 @@
+{
+  "context": {
+    "snapshot": {
+      "id": "683ca275-a2a9-4380-8ce6-36a0c840a384",
+      "resource_id": "ttc-bus-since-2025",
+      "content_sha256": "2bc395f3c0db59010daf42bd97dcc6f2c3006c3646f58cf2d2cd42cba6e1b1f3",
+      "lookup_snapshot_id": "0b429125-56d3-41b5-bdec-5d077b94fe14",
+      "source_url": "https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/e271cdae-8788-4980-96ce-6a5c95bc6618/resource/b5725365-9252-4bfe-b6f4-cda7ddf74341/download/ttc-bus-delay-data-since-2025.csv",
+      "dataset_url": "https://open.toronto.ca/dataset/ttc-bus-delay-data/",
+      "source_last_modified": "2026-10-26T12:32:23.781000",
+      "source_metadata_modified": "2026-10-29T14:39:25.894956",
+      "retrieved_at": "2026-11-05T07:11:04.553085Z",
+      "imported_at": "2026-11-05T20:19:53.444320Z",
+      "parser_version": "1",
+      "contract_version": "1"
+    },
+    "filters": {
+      "route": "102",
+      "start": "2025-01-01",
+      "end": "2025-01-31",
+      "date_bounds": "inclusive"
+    },
+    "coverage": {
+      "start": "2025-01-01",
+      "end": "2026-09-30",
+      "meaning": "Observed record dates; completeness of disruption reporting is not established."
+    },
+    "extends_beyond_loaded_dates": false
+  },
+  "summary": {
+    "reported_records": 65,
+    "valid_delay_samples": 65,
+    "zero_delay_samples": 1,
+    "median_recorded_delay_minutes": 20.0,
+    "mean_recorded_delay_minutes": 19.2,
+    "valid_gap_samples": 65,
+    "flagged_records": 11,
+    "first_matching_date": "2025-01-01",
+    "last_matching_date": "2025-01-31"
+  },
+  "quality": {
+    "scope": "entire_selected_snapshot",
+    "raw_count": 107349,
+    "accepted_count": 107349,
+    "rejected_count": 0,
+    "warning_record_count": 46723,
+    "warning_counts": {
+      "bound_missing": 22906,
+      "code_unmapped": 6925,
+      "route_missing": 1314,
+      "route_unparsed": 462,
+      "repeated_payload": 599,
+      "weekday_mismatch": 130,
+      "gap_zero_reported": 14036,
+      "bound_unrecognized": 26,
+      "delay_zero_reported": 13787,
+      "vehicle_zero_reported": 5410,
+      "description_encoding_suspect": 15593
+    },
+    "extra_columns": []
+  },
+  "definitions": {
+    "count": "Reported delay records, not unique verified incidents or a probability of a delayed trip.",
+    "delay": "Recorded delay to the following bus's schedule, in minutes. Valid numeric samples include reported zeroes.",
+    "gap": "A separate schedule-related source field; never added to delay or interpreted as passenger time.",
+    "missing": "Missing or invalid durations are excluded from numeric summaries; they are not zero.",
+    "routes": "Identifiers are conservatively parsed from historical labels; branches remain separate."
+  }
+}

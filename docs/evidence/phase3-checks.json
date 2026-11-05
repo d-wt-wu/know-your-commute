@@ -1,0 +1,57 @@
+{
+  "checked_at": "2026-11-05T22:14:15.530028+00:00",
+  "frontend_build": "TypeScript strict checks and Vite production build passed. Route chunks split the explorer/charts from About/Data health.",
+  "actual_browser_method": "Local GUI automation through Codex computer-use browser tools; real PostgreSQL source database.",
+  "actual_browser_checks": {
+    "source_backed_route_102_january": {
+      "records": 65,
+      "numeric_duration_samples": 65,
+      "median_recorded_minutes": 20
+    },
+    "date_form_january_1_through_15": {
+      "records": 39,
+      "median_recorded_minutes": 20,
+      "comparison": "Matched a separate Python calculation from the archived original CSV."
+    },
+    "keyboard_route_submit": true,
+    "empty_route_result": true,
+    "reload_preserves_page_2_and_filters": true,
+    "back_forward_restores_filters": true,
+    "sort_oldest_starts_at_source_row_2": true,
+    "pagination_retains_next_button_focus": true,
+    "data_health_shows_real_totals_and_last_success": true,
+    "about_definitions_visible": true,
+    "partial_coverage_notice_and_cross_year_labels": true,
+    "real_unavailable_backend_503_then_retry_recovery": true,
+    "initial_loading_state_observed": true
+  },
+  "mobile": {
+    "viewport_width": 375,
+    "viewport_height": 812,
+    "document_width_with_scrollbar": 360,
+    "no_page_wide_overflow": true,
+    "table_width": 840,
+    "table_region_width": 318,
+    "native_keyboard_table_scroll_left_observed": 31,
+    "metric_values_share_baseline": true
+  },
+  "final_preview_console_errors_or_warnings": [],
+  "screenshots": {
+    "explorer-desktop.jpg": {
+      "sha256": "3fb56c353db2b6ad326b0fb3442c1693f54163ba6df5ab2278c5316aa2ad86e8",
+      "bytes": 167079
+    },
+    "explorer-mobile.jpg": {
+      "sha256": "830d314642ba8ad537ea02038787ebdf8296a405445ba4278bd5890776364567",
+      "bytes": 115911
+    }
+  },
+  "automated_browser_ci": {
+    "prepared": true,
+    "collected_cases": 6,
+    "headless_execution": "not run locally",
+    "remote_github_run": "not run",
+    "fixture": "40 labelled synthetic rows in commute_browser_test; fixture seed and independent PostgreSQL summary verified."
+  },
+  "local_launcher": "scripts/run_local.py served frontend, readiness and real route-102 summary successfully on loopback."
+}

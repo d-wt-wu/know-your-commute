@@ -13,3 +13,6 @@ work/
 .DS_Store
 node_modules/
 web/dist/
+*.tsbuildinfo
+web/test-results/
+web/playwright-report/

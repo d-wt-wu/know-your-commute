@@ -2,7 +2,7 @@
 
 Project owner: **Wentao Wu**. Updated 5 November 2026 (America/Toronto).
 
-**Current status: Phases 0 and 1 complete.** The real PostgreSQL workflow is verified. Next: Phase 2, a tested FastAPI reporting API. The React dashboard follows the API; the existing portfolio remains separate and unchanged.
+**Current status: Phases 0–3 complete locally.** The importer, tested FastAPI API and React dashboard work on real PostgreSQL data. Next: Phase 4 automation/recovery/measurement, then deployment preparation. The existing portfolio remains separate and unchanged.
 
 ## Phase 0 — Complete
 
@@ -62,10 +62,35 @@ These are recorded single-run observations, not controlled cold-cache benchmarks
 - Wheel/source-distribution build passed and packaged all four report SQL resources; raw data, database files, environment secrets and local tools were excluded.
 - Dependency lock check and Python compilation passed.
 - All ten files in the existing portfolio source were hashed before and after implementation and were unchanged, including the research paper/photo assets.
-- GitHub Actions is configured locally, but no remote CI run, public repository, live API, browser app, deployment or users are claimed.
+- The API and browser app now work locally. GitHub Actions is configured locally; no remote CI success, public repository, external deployment or users are claimed.
 
-## Next task — Phase 2
+## Phase 2 — Complete locally
 
-Implement the read-only FastAPI route listing, shared route/date filters, summaries/patterns, stable record pagination and data-health response models. Reuse the snapshot-selection/report definitions and test each endpoint against a hand-checked PostgreSQL fixture. Keep internal provenance/error diagnostics out of the public response.
+- Added typed read-only FastAPI endpoints for route search, summaries, observed-day/cause patterns, bounded source-record pagination, process health, database readiness and public data health.
+- One shared query model validates route/date/snapshot inputs. Dates are inclusive; unknown/repeated parameters and invalid sort/page inputs fail clearly.
+- Every response pins one snapshot in a read-only repeatable-read transaction. The browser passes that snapshot to charts and subsequent pages, so separate HTTP requests do not mix source versions during a refresh.
+- Public projections exclude raw diagnostics, paths, headers and private source provenance. Secret-looking exception text was deliberately used in privacy tests and did not reach responses.
+- **63 Python cases passed, 0 skipped**, including 20 new API/database cases plus the original 43. A known Starlette/httpx test-client deprecation warning remains; it does not fail the current pinned checks.
+- Actual HTTP requests on the real database returned 65 route-102 January records, 65 duration samples and a 20-minute recorded median. Summary, daily/cause totals and page 2 reconciled on the same snapshot. Missing API paths returned JSON 404 instead of SPA HTML.
+- Evidence: `docs/evidence/phase2-checks.json`, captured API responses and OpenAPI. Contract: `docs/api.md`.
 
-After that API gate, build the React/TypeScript/Vite dashboard with charcoal, off-white and warm amber, accessible filters/charts, URL state and explicit historical-data limitations. No portfolio changes, account provisioning or purchases are needed for those local phases.
+## Phase 3 — Complete locally
+
+- Built the React/TypeScript/Vite dashboard in charcoal, off-white and warm amber. It reads the actual API rather than hardcoded success statistics.
+- Added route/date controls, recorded-count/duration metrics, daily and cause charts, chart data tables, bounded source rows with flags, pagination/sort, data health and About/definitions pages.
+- Route/date/sort/page filters survive reload and browser back/forward. Snapshot selection is pinned for the current view; a fresh shared URL selects the then-active source.
+- Verified desktop and 375-pixel mobile layouts through the app's actual browser-control tools. No page-wide mobile overflow; the source table scrolls inside its own region. Route input/Enter submission and pagination focus were checked.
+- Verified loading, empty, partial-coverage and real backend-unavailable states. Restarting the test backend and pressing Try again recovered successfully.
+- Browser QA caught and fixed a page-change scroll jump, a date edit lost when only draft React state was read, and ambiguous cross-year range labels. Date submission now reads displayed FormData values; page updates retain content/focus.
+- Route 102, January 1–15, showed **39 records**, matching an independent calculation from the original CSV. The full January view remains 65 / median 20 / numeric n=65.
+- Strict TypeScript checks and the production build passed. Explorer/charts load separately from About/Data health. The final main preview returned no console errors/warnings.
+- `scripts/run_local.py` serves the built frontend and API with one loopback-only command; real HTTP requests verified the launcher. Preview processes are stopped after QA; PostgreSQL remains running.
+- Evidence: `docs/evidence/phase3-checks.json` and `docs/screenshots/`.
+
+## Phase 4 — Prepared, not complete
+
+The GitHub Actions workflow now includes Python/PostgreSQL checks, frontend installation/build and desktop/mobile Playwright cases. All six browser cases collected. The browser fixture seed and expected PostgreSQL summary were verified in `commute_browser_test`, separately from the real-source database. Headless Playwright execution and the remote GitHub workflow have **not** been run; local GUI verification used the app's browser-control tools.
+
+Remaining: execute the browser workflow in an appropriate environment, add a deliberate manual refresh/recovery workflow, perform a backup/rebuild or restore drill, and inspect a real query plan before proposing index changes. Production API/import roles and container/deployment configuration also remain later work. Do not claim Phase 4, remote CI or deployment complete from the local checks.
+
+No hosting account, service purchase or portfolio edit is needed for those remaining local preparation steps. Recheck current provider limits and costs before provisioning anything. Keep the existing portfolio, paper and photos separate until an actual app/repository link exists.

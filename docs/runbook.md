@@ -8,6 +8,8 @@ Run commands from the project directory. No hosting account, domain or paid serv
 uv sync --locked
 source .venv/bin/activate
 export PYTHONPATH="$PWD/src"
+export UV_CACHE_DIR="$PWD/work/uv-cache"
+export NPM_CONFIG_CACHE="$PWD/work/npm-cache"
 set -a
 source .env.example
 set +a
@@ -24,6 +26,40 @@ UV_CACHE_DIR="$PWD/work/uv-cache" .venv/bin/uv sync --locked
 On this Mac, the existing Python 3.13 used for bootstrap is `/opt/anaconda3/bin/python3.13`. No shared packages were changed. The app runner marks ignored `.pth` files hidden, which can prevent editable package discovery on macOS/Python 3.13; the explicit `PYTHONPATH` above handles this. Normal installed wheels do not require that workaround.
 
 The example database credentials are for a loopback-only developer database. Production credentials and separate read-only API/import roles will be configured during deployment; do not reuse these examples publicly. Real `.env` files stay ignored.
+
+## Run the dashboard and API
+
+With the local database already running and loaded:
+
+```sh
+npm --prefix web ci
+npm --prefix web run build
+.venv/bin/python scripts/run_local.py
+```
+
+Open `http://127.0.0.1:8000/`. The current checkout already has a build, so the launcher alone is enough until source changes. It serves the frontend and API on one origin, binds only to loopback and respects an explicitly provided `DATABASE_URL`; otherwise it uses the existing local example. Ctrl+C stops this app process without stopping PostgreSQL.
+
+For development, keep the API on 8000 and run `npm --prefix web run dev` in a second terminal. Vite serves 5173 and proxies `/api`; no broad CORS policy is needed. Rebuild and reload after frontend source changes when using the built single-origin server. Direct links to `/data-health` and `/about` work; unknown API/assets keep their error status.
+
+The API reference is at `/docs`; the contract and snapshot-pinning behaviour are documented in `docs/api.md`. Clock-time heatmaps are deliberately deferred while source timezone/overnight semantics remain unresolved.
+
+## Browser verification and CI
+
+The actual local dashboard was checked in the app's browser using real records. Verified flows include route/keyboard submission, date changes, pagination with focus retained, reload, back/forward, sort order, empty results, partial coverage, a real backend-unavailable response and successful retry after service recovery. Mobile checks used a 375-pixel viewport, confirmed no page-wide overflow and scrolled the table independently. Final screenshots are in `docs/screenshots/`.
+
+The prepared automated browser suite uses a separate synthetic database, never the real-source database:
+
+```sh
+export BROWSER_TEST_DATABASE_URL='postgresql+psycopg://commute:commute_local@127.0.0.1:54329/commute_browser_test'
+.venv/bin/python scripts/seed_browser.py
+cd web
+npx playwright install chromium
+npm run test:e2e
+```
+
+The seeder can create/reset only the exact database `commute_browser_test`. Its 40 synthetic rows are labelled in code and deliberately exercise missing duration, zero, unknown code and pagination. Its route-102 expected count is 35, distinct from the real source's January count of 65. The suite owns port 8002, starts the built app, and refuses to reuse an existing server. Use `npm run test:e2e -- --list` for collection only.
+
+Current verification: seeding and its PostgreSQL summary were checked, and all six desktop/mobile cases collected. The suite's headless execution and remote GitHub Actions execution are still unverified; local GUI QA used the app's browser-control tools. CI is configured to install the browser and run these cases after the Python checks/frontend build. Do not describe the prepared workflow as a passing remote CI run.
 
 ## Database options
 
@@ -111,3 +147,5 @@ For a broken local test database, recreate **only** `commute_test` intentionally
 Start with fixture `_id=1`. Its manifest points back to original CSV row 2. Follow the saved raw payload, typed `Date`, derived route `102`, code `MFESA`, and the pinned lookup description. Explain which transformations are reversible through the raw record.
 
 Then read the hand-calculated SQL test: route 102 has three matching records with recorded delays `[10, missing, 0]`, so the numeric sample count is two and the median is five. Change one input and predict the result before rerunning the test. Explain why the source's 300 repeated extra payloads are retained, why a cumulative correction replaces a snapshot, and why none of these counts is a trip-level probability.
+
+For the web slice, follow `route=102` and the dates from the address bar to `FilterQuery`, the shared `Filters` selection, the pinned snapshot and `route_summary.sql`, then the typed response and React metric/chart. Explain why the chart and page-2 request include the returned snapshot ID. Changing the real January end date from the 31st to the 15th changes the record count from 65 to 39; both were checked against original CSV cells. Date-form submission and pagination focus were browser bugs caught after the API tests already passed.

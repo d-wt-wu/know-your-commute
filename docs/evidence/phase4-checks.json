@@ -21,8 +21,15 @@
   },
   "backup_restore_evidence": "backup-restore.json",
   "query_plan_evidence": "query-measurements.json",
-  "remote_ci": "not yet verified",
-  "container_build": "not locally run; Docker absent; remote CI configured",
+  "remote_ci": {
+    "status": "passed",
+    "run_url": "https://github.com/d-wt-wu/know-your-commute/actions/runs/42126800606",
+    "implementation_commit": "98721d3bb84b9b897b7bf5ed880a9f95600a5525",
+    "python_passed": 68,
+    "browser_passed": 8
+  },
+  "container_build": "Built and startup-verified on GitHub Linux runner against isolated synthetic database",
   "physical_iphone_installation": "not yet verified",
-  "production_hosting": "not provisioned"
+  "production_hosting": "not provisioned",
+  "portfolio_preservation": "All ten original content hashes unchanged"
 }

@@ -2,7 +2,7 @@
 
 Project owner: **Wentao Wu**. Updated 5 November 2026 (America/Toronto).
 
-**Current status: Phases 0–3 complete locally; Phase 4 local gates passed.** The real-data importer/API/dashboard now have backup/restore verification, query-plan evidence, read-only API grants and passing automated browser checks. GitHub publication/remote CI and website release are being verified separately. The existing portfolio remains separate and unchanged.
+**Current status: Phases 0–3 complete locally; Phase 4 gates passed locally and on GitHub.** The real-data importer/API/dashboard now have backup/restore verification, query-plan evidence, read-only API grants and passing automated browser checks. The source is public and the deployment container passed remote build/startup checks. Hosting account approvals remain before the website release. The existing portfolio remains separate and unchanged.
 
 ## Phase 0 — Complete
 
@@ -62,7 +62,7 @@ These are recorded single-run observations, not controlled cold-cache benchmarks
 - Wheel/source-distribution build passed and packaged all four report SQL resources; raw data, database files, environment secrets and local tools were excluded.
 - Dependency lock check and Python compilation passed.
 - All ten files in the existing portfolio source were hashed before and after implementation and were unchanged, including the research paper/photo assets.
-- The API and browser app now work locally. GitHub Actions is configured locally; no remote CI success, public repository, external deployment or users are claimed.
+- The API and browser app now work locally. GitHub Actions now passed on the public repository (see Phase 4); no external app deployment or users are claimed.
 
 ## Phase 2 — Complete locally
 
@@ -87,7 +87,7 @@ These are recorded single-run observations, not controlled cold-cache benchmarks
 - `scripts/run_local.py` serves the built frontend and API with one loopback-only command; real HTTP requests verified the launcher. Preview processes are stopped after QA; PostgreSQL remains running.
 - Evidence: `docs/evidence/phase3-checks.json` and `docs/screenshots/`.
 
-## Phase 4 — Local gates passed; remote CI pending
+## Phase 4 — Verified locally and on GitHub
 
 - **68 Python checks passed, 0 skipped**, including 43 PostgreSQL integration cases. Added real dump/restore consistency during a concurrent correction, failed-restore cleanup, corrupt archive refusal and a SELECT-only API role check.
 - **Eight Playwright cases passed** across desktop/mobile, covering filters/history/pagination, loading/empty/partial/failure/retry states, contained mobile layout and Home Screen assets. The initial restricted browser launch failed before any page ran. Normal process approval enabled execution. One first-run pagination timeout passed in isolation and in the subsequent complete suite; no unproven product fix or automatic retry was introduced.
@@ -96,14 +96,14 @@ These are recorded single-run observations, not controlled cold-cache benchmarks
 - Measured the actual route/date and all-data SQL summaries. The 65-row route filter used `ix_delay_route_date`; the 107,349-row broad query used a sequential scan. Median of five repeated calls: 0.429 ms and 16.329 ms. Both plans used cached blocks; no additional index or true cold-cache result is claimed. Evidence: `docs/evidence/query-measurements.json`.
 - Added a manual and opt-in weekly refresh workflow, per-workflow concurrency, existing database-lock protection, public freshness output and seven-day public-source artifacts. No production secret exists and scheduled imports stay disabled until explicitly configured after a manual run.
 - Added explicit grants for a separately provisioned API login. All public reporting endpoints worked under SELECT-only grants. Record writes, schema creation and raw/rejected-table reads were refused by PostgreSQL.
-- CI now includes PostgreSQL 17 client tools, full database/browser checks, Docker image build and a running-container smoke check. Remote execution remains a separate gate, not inferred from local results.
+- Actual [GitHub Actions run](https://github.com/d-wt-wu/know-your-commute/actions/runs/42126800606) passed on implementation commit `98721d3`: **68 Python tests**, **eight browser cases**, frontend build, Docker image build and running-container smoke check. The first run caught missing PostgreSQL 17 client packages; using the official signed apt repository fixed that setup failure. Evidence: `docs/evidence/github-ci.json`.
 
 ## Phase 5 — Release prepared; hosting not provisioned
 
-- Prepared a multi-stage Docker image for the API/frontend, non-root runtime, bounded database connection pool, secret-excluding build context and a Render Free candidate configuration using external PostgreSQL. Docker is unavailable on this Mac, so an actual container build is assigned to remote CI.
+- Prepared a multi-stage Docker image for the API/frontend, non-root runtime, bounded database connection pool, secret-excluding build context and a Render Free candidate configuration using external PostgreSQL. Docker is unavailable on this Mac; the image was built and started successfully on the GitHub Linux runner.
 - Added a web app manifest, generated PNG/Apple touch icons, standalone metadata, larger mobile touch controls and Safari installation instructions. Eight browser cases verify the assets are really served. A physical iPhone installation remains unverified until the HTTPS website exists. No native App Store project is claimed.
 - Checked current official Render/Neon/Apple limits and documented the website-first route in `docs/deployment.md`: proposed Render Free + Neon Free, no domain purchase or Apple membership needed for a Home Screen web app. Account/plan choices remain the owner's decision.
-- Created the public GitHub repository `https://github.com/d-wt-wu/know-your-commute`; source push and remote checks are not yet recorded successful here.
-- Remaining: push the reviewed source, verify remote CI/container, choose/create hosting accounts, migrate/import the external database with a private writer connection, deploy with a separate read-only API connection, verify HTTPS and physical iPhone installation, then finish the case study/demo. No live app URL, deployment, users, purchase or portfolio edit is claimed.
+- Published the source/history to the public GitHub repository `https://github.com/d-wt-wu/know-your-commute` and verified its passing remote checks.
+- Remaining: complete hosting sign-ins/permissions and confirm the Free plans, migrate/import the external database with a private writer connection, deploy with a separate read-only API connection, verify HTTPS and physical iPhone installation, then finish the case study/demo. No live app URL, deployment, users, purchase or portfolio edit is claimed. Render requires GitHub identity/email authorization; Neon is at sign-in. Automatic approval review rejected initiating Neon’s GitHub sign-in because new third-party account access needs explicit authorization. Neither hosting account authorization nor provisioning was completed.
 
 Recovery/automation details: `docs/operations.md`. The existing portfolio, paper and photos remain separate. True cold-cache and hosted end-to-end measurements remain future work; local summary timings are not production guarantees.

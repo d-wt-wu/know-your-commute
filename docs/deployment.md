@@ -1,7 +1,7 @@
 # Website and iPhone release preparation
 
 Owner: Wentao Wu. Provider information checked **5 November 2026**. This is a
-reviewable deployment configuration, not a claim that a public service exists.
+reviewable deployment configuration. The [source repository](https://github.com/d-wt-wu/know-your-commute) is public and its [container/build checks](https://github.com/d-wt-wu/know-your-commute/actions/runs/42126800606) passed. No public app service exists yet.
 
 ## First release
 

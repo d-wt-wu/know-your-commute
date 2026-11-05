@@ -2,7 +2,7 @@
 
 An independent project by **Wentao Wu** for exploring historical reported TTC bus delay records. Select a bus route and date range, inspect recorded causes/durations, and follow a result back to its source rows and quality flags.
 
-**Status:** Working locally with **107,349 official records**, a tested PostgreSQL importer, FastAPI API and React/TypeScript dashboard. **68 Python checks and eight desktop/mobile browser checks passed locally.** A real backup was restored and every table fingerprint matched. Website/container and iPhone Home Screen configuration are prepared; hosting is not provisioned. Remote CI status is recorded in [progress](docs/progress.md); a workflow file alone is not a passing run.
+**Status:** Working locally with **107,349 official records**, a tested PostgreSQL importer, FastAPI API and React/TypeScript dashboard. **68 Python checks and eight desktop/mobile browser checks passed locally.** A real backup was restored and every table fingerprint matched. The deployable container built and passed its startup check in [GitHub Actions](https://github.com/d-wt-wu/know-your-commute/actions/runs/42126800606). iPhone Home Screen configuration is prepared; hosting is not provisioned. See [progress](docs/progress.md).
 
 Record counts cannot establish a bus trip's delay probability or rank route reliability: this source has no scheduled/operated-trip denominator. Recorded delay minutes describe delay to the following bus's schedule. They are not passenger-minutes lost. This is historical data, not live arrivals.
 
@@ -85,7 +85,7 @@ For frontend development, run `npm --prefix web run dev` in a second terminal; V
 - SQL route/date totals, duration sample counts, daily counts, causes and traceable examples. Queries use bound values and one consistent snapshot.
 - Typed read-only endpoints for route search, summaries, patterns, bounded record pagination and public data health. Browser requests pin the selected snapshot across charts and pages.
 - A responsive charcoal/off-white/amber explorer with URL filters/history, keyboard route submission, source-row flags, chart data tables, explicit empty/partial/failure states and data health/about pages.
-- pytest validation/download/API tests and PostgreSQL integration scenarios; GitHub Actions includes frontend build and isolated desktop/mobile browser cases. Remote CI has not run.
+- pytest validation/download/API tests and PostgreSQL integration scenarios; actual GitHub Actions checks passed for Python, frontend build, isolated desktop/mobile browser journeys and the running deployment container.
 - Consistent logical backups, a scratch-database restore verifier, explicit API-only database grants and measured PostgreSQL query plans. A manual/opt-in weekly source-check workflow preserves previous good data on failure.
 - Home Screen manifest/icons and iPhone installation guidance. The phone view requires a network connection; no native App Store release is claimed.
 

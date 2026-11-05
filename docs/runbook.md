@@ -130,7 +130,7 @@ For a new download, replace the example manifest with the actual returned path. 
 - Integration tests use a dedicated PostgreSQL database whose name ends in `_test`. Their setup applies Alembic migrations and checks agreement with Core metadata. Each test truncates only that configured test database.
 - Scenarios include corrected cumulative files, identical-looking rows, same-byte reruns, malformed input, missing/zero durations, schema additions, lookup/parser changes, snapshot reversion, transaction rollback, actual child-process death, competing importers and consistent reporting during refresh.
 - Local pytest skips the database group with an explicit reason if `TEST_DATABASE_URL` is absent. CI sets `REQUIRE_INTEGRATION_TESTS=1`, making that omission an error. CI has a real PostgreSQL 17 service and no live City-download dependency.
-- The workflow is configured locally; a successful GitHub Actions run is not claimed until this repository is published and it actually runs.
+- The public repository's [GitHub Actions run](https://github.com/d-wt-wu/know-your-commute/actions/runs/42126800606) passed 68 Python checks, eight browser cases, frontend/container builds and the running-container smoke check. See progress and captured evidence for the tested implementation commit.
 
 ## Failure recovery
 

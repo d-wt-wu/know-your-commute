@@ -1,0 +1,143 @@
+{
+  "run_id": 42126800606,
+  "run_url": "https://github.com/d-wt-wu/know-your-commute/actions/runs/42126800606",
+  "head_sha": "98721d3bb84b9b897b7bf5ed880a9f95600a5525",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "id": 127592952126,
+      "name": "data-workflow",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 42126800606,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Initialize containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Run astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Run uv sync --locked",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "PostgreSQL 17 backup/restore client tools",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Unit and PostgreSQL integration checks (including migrations)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Run actions/setup-node@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Install and build dashboard",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "Seed isolated synthetic browser fixture",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10
+        },
+        {
+          "name": "Install browser for CI",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11
+        },
+        {
+          "name": "Browser journeys on desktop and mobile",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12
+        },
+        {
+          "name": "Build deployment image",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13
+        },
+        {
+          "name": "Verify the running container with isolated synthetic data",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14
+        },
+        {
+          "name": "Post Run actions/setup-node@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 25
+        },
+        {
+          "name": "Post Run astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 26
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 27
+        },
+        {
+          "name": "Stop containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 28
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 29
+        }
+      ]
+    }
+  ],
+  "verified_log_results": {
+    "python": "68 passed, 1 known Starlette/httpx warning, 4.90 seconds",
+    "browser": "8 passed, 8.5 seconds",
+    "docker": "image build succeeded; running-container smoke returned verified",
+    "container_source": "isolated labelled synthetic fixture; route-102 January count 35, not the real source count 65"
+  },
+  "first_run": {
+    "run_id": 42125677798,
+    "conclusion": "failure",
+    "reason": "Ubuntu runner lacked postgresql-client-17; official signed PostgreSQL apt repository added before installing the client"
+  }
+}

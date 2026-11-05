@@ -1,0 +1,90 @@
+{
+  "verified_at": "2026-11-05T20:19:59.254109+00:00",
+  "commands": [
+    {
+      "command": [
+        "-m",
+        "alembic",
+        "upgrade",
+        "head"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.\nINFO  [alembic.runtime.migration] Will assume transactional DDL.\n"
+    },
+    {
+      "command": [
+        "-m",
+        "pytest",
+        "-q",
+        "--tb=short",
+        "--junitxml=work/phase1-tests.xml"
+      ],
+      "exit_code": 0,
+      "stdout": "No new upgrade operations detected.\nNo new upgrade operations detected.\n...........................................                              [100%]\n43 passed in 1.24s\n",
+      "stderr": ""
+    }
+  ],
+  "tests": {
+    "passed": 43,
+    "integration_passed": 20,
+    "skipped": 0
+  },
+  "python": "3.13.5",
+  "platform": "Darwin",
+  "machine": "arm64",
+  "database_version": "PostgreSQL 17.11 on aarch64-apple-darwin25.6.0, compiled by Apple clang version 21.0.0 (clang-2100.1.1.101), 64-bit",
+  "manifest": "data/raw/download-manifest.json",
+  "first_attempts_this_gate": [
+    {
+      "run_id": "4162c993-2a25-4ecf-8123-806453391d4b",
+      "snapshot_id": "0b429125-56d3-41b5-bdec-5d077b94fe14",
+      "status": "succeeded",
+      "raw_count": 46,
+      "accepted_count": 46,
+      "rejected_count": 0,
+      "warning_record_count": 10
+    },
+    {
+      "run_id": "09610193-47ad-46f0-b42b-1581f8eda365",
+      "snapshot_id": "683ca275-a2a9-4380-8ce6-36a0c840a384",
+      "status": "succeeded",
+      "raw_count": 107349,
+      "accepted_count": 107349,
+      "rejected_count": 0,
+      "warning_record_count": 46723
+    }
+  ],
+  "rerun_attempts": [
+    {
+      "run_id": "3914afc5-38d5-4052-bb76-9721a1a37d29",
+      "snapshot_id": "0b429125-56d3-41b5-bdec-5d077b94fe14",
+      "status": "no_change",
+      "raw_count": 46,
+      "accepted_count": 46,
+      "rejected_count": 0,
+      "warning_record_count": 10
+    },
+    {
+      "run_id": "7b7ba251-2101-4024-b671-ebb7bd66cc64",
+      "snapshot_id": "683ca275-a2a9-4380-8ce6-36a0c840a384",
+      "status": "no_change",
+      "raw_count": 107349,
+      "accepted_count": 107349,
+      "rejected_count": 0,
+      "warning_record_count": 46723
+    }
+  ],
+  "measurements": {
+    "first_attempts_seconds": 5.714669958688319,
+    "same_bytes_rerun_seconds": 0.0200055418536067,
+    "route_report_seconds": 0.005265167448669672,
+    "database_bytes_after_gate": 79345331,
+    "conditions": "One local run with an existing server; no controlled cold-cache benchmark. First attempt may reuse preexisting snapshots; see statuses."
+  },
+  "independent_route_102_january_check": {
+    "records": 65,
+    "duration_samples": 65,
+    "median_recorded_minutes": 20
+  }
+}

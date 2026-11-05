@@ -2,7 +2,7 @@
 
 An independent project by **Wentao Wu** for exploring historical reported TTC bus delay records. The first slice is a Python/PostgreSQL data workflow: preserve the source, validate it, replace cumulative snapshots safely, and answer route/date questions with SQL.
 
-**Status:** Phase 0 verified. Phase 1 implementation is present; the first database import and PostgreSQL tests await the local database startup described in [progress](docs/progress.md). The FastAPI API and React dashboard come after that gate. There is no deployed app or public repository yet.
+**Status:** Phases 0–1 verified against PostgreSQL 17.11: **43 tests passed**, including 20 database integration cases. The real source imported 107,349 records; an identical rerun reused the active snapshot. Route 102 for January 2025 matched an independent CSV calculation. See [progress](docs/progress.md) and [verification evidence](docs/evidence/phase1-checks.json). The FastAPI API and React dashboard are the next phases. There is no deployed app or public repository yet.
 
 Record counts cannot establish a bus trip's delay probability or rank route reliability: this source has no scheduled/operated-trip denominator. Recorded delay minutes describe delay to the following bus's schedule. They are not passenger-minutes lost. This is historical data, not live arrivals.
 

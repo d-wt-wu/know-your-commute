@@ -86,8 +86,13 @@ def import_resource(
                         lookup_id = connection.scalar(sa.select(resources.c.active_snapshot_id).where(resources.c.id == CODES.key))
                         if lookup_id is None:
                             raise ContractError("Import the official code lookup before the delay file.")
-                        descriptions = dict(connection.execute(sa.select(incident_codes.c.code, incident_codes.c.description)
-                                                                 .where(incident_codes.c.snapshot_id == lookup_id)).tuples())
+                        descriptions = {
+                            code: description
+                            for code, description in connection.execute(
+                                sa.select(incident_codes.c.code, incident_codes.c.description)
+                                .where(incident_codes.c.snapshot_id == lookup_id)
+                            )
+                        }
                     processing_key = fingerprint({"sha256": source.sha256, "parser": parser_version,
                                                   "contract": contract_version, "lookup_snapshot_id": str(lookup_id)})
                     existing = connection.execute(sa.select(snapshots).where(snapshots.c.resource_id == resource.key,

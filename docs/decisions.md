@@ -10,7 +10,7 @@ The available system Python is 3.10, but a usable Python 3.13 is installed under
 
 This workload does not require distributed infrastructure. PostgreSQL provides transactions, constraints, JSONB for source payloads, indexes and readable analytical SQL. Core keeps queries explicit; Alembic gives schema changes a reviewed history. SQLite or a JSON-only preview would not verify PostgreSQL behaviour.
 
-No Docker/PostgreSQL/Homebrew installation was found. A checksum-verified PostgreSQL 17.11 source build was completed entirely inside ignored `work/`. A Compose configuration also targets major 17. The app runner denies System V shared-memory creation during `initdb`, so the initial server needs to be started in Wentao's Terminal. No database integration results are claimed before that step. The optional local build is loopback-only and omits ICU/readline/zlib; it is for development, not a production server configuration.
+No Docker/PostgreSQL/Homebrew installation was found. A checksum-verified PostgreSQL 17.11 source build was completed entirely inside ignored `work/`. A Compose configuration also targets major 17. The app runner denies System V shared-memory creation during `initdb`, so Wentao started the server from Terminal. After local connection access was granted, all 20 PostgreSQL integration cases and the real import/rerun passed. The optional local build is loopback-only and omits ICU/readline/zlib; it is for development, not a production server configuration.
 
 ## 3 — A hash identifies bytes, not an incident
 
@@ -22,7 +22,7 @@ The source has `_id`, but no documentation promises incident uniqueness or stabl
 
 A corrected file can edit, add or remove old rows. Appending it would count both old and corrected data. Build a complete immutable snapshot, verify the staged counts, then update one active pointer and the success audit in the same transaction. Reports select only that pointer. Retain old snapshots for provenance; a reversion can reuse one.
 
-Every attempt starts an independently committed audit row before download. A session advisory lock covers downloading, validation and promotion for one resource. After an exception, rollback removes the staged rows and the audit records failure. A process crash leaves a running audit row for the next lock holder to close as interrupted. Tests include ordinary failure, competing importers and actual subprocess exit before commit; they require a running PostgreSQL server.
+Every attempt starts an independently committed audit row before download. A session advisory lock covers downloading, validation and promotion for one resource. After an exception, rollback removes the staged rows and the audit records failure. A process crash leaves a running audit row for the next lock holder to close as interrupted. Tests passed against PostgreSQL for ordinary failure, competing importers and actual subprocess exit before commit.
 
 ## 5 — Pin the lookup too
 
@@ -41,3 +41,9 @@ Run the report's queries in a read-only repeatable-read transaction, capture the
 ## 8 — Keep the evidence modest
 
 Commit small attributed fixtures, hashes, a profile, tests and documentation. Ignore originals, environment files, build tools, database files and dumps. CI uses fixtures with a real PostgreSQL service and fails if database tests are accidentally disabled. No claims of deployments, users, successful CI runs, database timing or résumé impact are made without evidence.
+
+## 9 — What the first database run caught
+
+The first PostgreSQL run applied and round-tripped the migration, then exposed a lookup-loading bug: passing SQLAlchemy's result object directly to `dict()` followed an unsupported mapping path. Explicitly unpacking the `(code, description)` rows fixed it. All 43 tests then passed, including the 20 database cases. This is a concrete example of why passing parser unit tests did not establish that the database workflow worked.
+
+The subsequent first real import and identical rerun are measured in `docs/evidence/phase1-checks.json`. These are single local observations with an already running server, not controlled performance benchmarks or user-impact claims.

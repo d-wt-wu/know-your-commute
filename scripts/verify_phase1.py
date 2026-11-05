@@ -50,7 +50,7 @@ def main():
     for command in (
         ([[sys.executable, "scripts/local_postgres.py", "setup"]] if args.local_postgres else [])
         + [[sys.executable, "-m", "alembic", "upgrade", "head"],
-           [sys.executable, "-m", "pytest", "-q", "--junitxml=work/phase1-tests.xml"]]
+           [sys.executable, "-m", "pytest", "-q", "--tb=short", "--junitxml=work/phase1-tests.xml"]]
     ):
         result = subprocess.run(command, cwd=ROOT, env=environment, capture_output=True, text=True)
         print(result.stdout, end="", flush=True)

@@ -49,6 +49,8 @@ python scripts/local_postgres.py start
 
 **Observed app restriction:** `initdb` failed at `shmget(... size=56 ...)` with `Operation not permitted` in this app's restricted runner. This is a real startup blocker, not a failed data test. Run `setup` in your own Mac Terminal; then the app can use the running loopback server. Do not change PostgreSQL's source or substitute another engine to hide the limitation.
 
+Resolved for this checkout: Wentao started the server from Terminal, local connection access was granted, and the full Phase 1 gate passed. The status helper now checks the connected server's data directory through SQL; process inspection alone can incorrectly report an externally started server as stopped inside the app. Restarting a stopped server still belongs in Terminal while the startup restriction applies.
+
 ## Apply migrations, test and import
 
 ```sh

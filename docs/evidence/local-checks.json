@@ -9,5 +9,7 @@
   "migration": "Frozen upgrade/downgrade compiled for PostgreSQL dialect; not applied to a server.",
   "database_startup_error": "initdb: could not create shared memory segment: Operation not permitted; failed system call shmget, size=56.",
   "source_profile_sha256": "87d5a9005eb111c64b7ea3a44e647f13d456f966ce0299fe66748446354f2dae",
-  "portfolio": "All 10 baseline file content hashes matched after implementation."
+  "portfolio": "All 10 baseline file content hashes matched after implementation.",
+  "status": "historical_pre_database_checks",
+  "superseded_by": "phase1-checks.json"
 }

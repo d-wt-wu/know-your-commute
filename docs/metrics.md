@@ -21,3 +21,9 @@ Counts across routes cannot establish reliability rankings or delay probability 
 For no matches, return count 0, valid sample count 0, null duration summaries, and empty observed-date/cause/example arrays. Say “No matching records in the loaded data”. A route is not proven delay-free.
 
 An import's quality flag means a documented condition was observed. It is not a percentage score of overall truth. The source's accuracy and reporting completeness are not independently established by this project.
+
+## First verified SQL example
+
+The PostgreSQL report for exact identifier `102`, inclusive 2025-01-01 through 2025-01-31, returned **65 reported records**, **65 valid numeric delay values**, **one reported zero**, and a **20-minute median recorded delay**. Counts, valid-value sample size and median matched an independent calculation from the original CSV strings. Daily counts and causes each reconciled to 65. See [the captured report](evidence/route-102-2025-01.json).
+
+This describes the recorded entries for that filter. It does not describe all route 102 trips or the probability of encountering a delay.

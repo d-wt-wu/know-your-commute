@@ -2,56 +2,70 @@
 
 Project owner: **Wentao Wu**. Updated 5 November 2026 (America/Toronto).
 
+**Current status: Phases 0 and 1 complete.** The real PostgreSQL workflow is verified. Next: Phase 2, a tested FastAPI reporting API. The React dashboard follows the API; the existing portfolio remains separate and unchanged.
+
 ## Phase 0 — Complete
 
-- Read the full chosen project plan and dated career context. Copied the plan into `docs/project-plan.md`; no project brainstorming was reopened.
-- Checked ancestor/local guidance and Git boundaries. No applicable `AGENTS.md` was found; the new project is an independent Git repository. The existing portfolio is a separate repository and was not edited.
-- Inspected Python, Node, Docker/PostgreSQL and build tools. Used an isolated Python 3.13 environment; locked dependencies. Node 22.17.1 is available but no frontend has been scaffolded before the data gate.
-- Downloaded official CKAN metadata, README XLSX, the 2025-onward CSV and the code lookup. Resolved resource IDs to their current URLs; recorded SHA-256 hashes, retrieval times and source modification strings.
-- Verified the exact 11-column CSV schema, which differs from the older README names. Recorded the meanings of delay/gap and unresolved identifier, timezone, service-day and zero-value semantics in `data-contract.md`.
-- Profiled 107,349 real records: all are usable under the minimum date contract; 46,723 have at least one quality flag. Observed dates span 2025-01-01 through 2026-09-30. These are Python validation results, not a database import or reliability measure.
-- Saved a deterministic, attributed 20-row fixture with original row positions, plus the complete small lookup. Preserved unknown codes, encoding defects, route ambiguity, weekday mismatches and repeated payloads.
-- Compiled checksum-verified PostgreSQL 17.11 inside ignored `work/`. Compose and a project-local startup script provide clear setup paths. The actual server startup restriction is recorded below.
+- Read the full chosen project plan and dated career context; copied the plan into `docs/project-plan.md`. No project brainstorming was reopened.
+- Checked local guidance and Git boundaries. No applicable `AGENTS.md` was found. The project is its own Git repository; it has no remote or deployment configured.
+- Used a project-local Python 3.13 environment and committed the dependency lockfile. Node 22.17.1 is available for the later frontend. No shared Anaconda packages were changed.
+- Downloaded official CKAN metadata, README XLSX, the 2025-onward CSV and the code lookup. Recorded URLs, SHA-256 hashes, UTC retrieval times and publisher modification strings.
+- Verified the real 11-column CSV schema, which differs from the older README's names. The data contract records duration definitions and unresolved identifier, timezone, overnight-service and zero-value semantics.
+- Profiled 107,349 records dated 2025-01-01 through 2026-09-30. Saved a deterministic attributed 20-row fixture, its original source row positions and the complete small lookup.
+- Preserved unknown codes, published encoding issues, route ambiguity, weekday mismatches and repeated payloads. No deduplication removed records.
+- Built checksum-verified PostgreSQL 17.11 inside ignored `work/`, with Compose as another setup path. Wentao started the server from Terminal after the app runner blocked its initial shared-memory creation.
 
-## Phase 1 — Implemented; acceptance gate pending
+## Phase 1 — Complete
 
-Implemented:
+Verified 05 November 2026 at 15:19 EST. Machine: local macOS/arm64, Python 3.13.5, PostgreSQL 17.11. Full evidence: `docs/evidence/phase1-checks.json`.
 
-- SQLAlchemy Core schema and frozen Alembic migration `0001` for resources, snapshots, attempts, raw rows, analytical rows, code versions and rejects.
-- Official downloads with bounded size/timeouts/retries, HTML detection, immutable originals and checksum-verified bundle replay.
-- Per-resource locks, an independently committed attempt log, staged count reconciliation, pinned lookup versions and atomic promotion. Same-byte no-change, parser/lookup reprocessing and source reactivation paths are present.
-- Route/date SQL reports with numeric duration sample counts, observed-day counts, cause mapping and traceable examples. Bound parameters and one repeatable-read snapshot keep the queries consistent.
-- Validation/download unit cases and 20 PostgreSQL integration cases, including actual child-process death, rollback, corrected cumulative data, simultaneous importers and refresh during reporting.
-- GitHub Actions configuration using a real PostgreSQL service. It has not run remotely; nothing has been uploaded or deployed.
-- `scripts/verify_phase1.py` performs the actual database gate, real import/rerun and independent raw-CSV/report comparison, and writes success evidence only on completion.
-
-Verification actually run:
-
-| Check | Result |
+| Acceptance check | Actual result |
 | --- | --- |
-| `python scripts/profile_sources.py --write-fixture` with project Python path | Real source opened/profiled; fixture generated; original hashes verified |
-| `pytest` without `TEST_DATABASE_URL` | **23 passed, 20 skipped**; skips are explicitly the unavailable PostgreSQL group |
-| PostgreSQL-dialect compile of frozen migration upgrade/downgrade | Passed; generated SQL inspected; not a migration applied to a database |
-| CLI help and Python compilation | Passed |
-| Real `commute fetch --directory data/verified-fetch` | Passed; captured official resources match the inspection hashes; evidence in `docs/evidence/source-fetch.json` |
-| Wheel/source-distribution build | Passed; all four SQL report resources are included in the wheel |
-| `uv lock --check` | Passed |
-| PostgreSQL source compilation | Passed; official checksum verified |
-| `python scripts/local_postgres.py setup` inside app runner | **Blocked:** `initdb` cannot create a System V shared-memory segment (`shmget`, Operation not permitted) |
+| Unit and PostgreSQL integration suite | **43 passed, 0 skipped**; 20 PostgreSQL cases |
+| Alembic | Migration 0001 applied; downgrade/upgrade round trip passed; Core metadata check reported no pending operations |
+| First real import | 46 official lookup entries and **107,349 delay records** accepted; 0 rejected delay rows |
+| Quality preservation | 46,723 delay records retained with one or more flags; 599 rows in repeated-payload groups kept |
+| Identical real-source rerun | Both resources returned `no_change`; active snapshot IDs and analytical counts unchanged |
+| Corrected cumulative file | Integration test replaced the active version while retaining old raw provenance |
+| Bad headers, bad dates, HTML and timeout | Failure/rejection cases passed; previous good active data stayed available |
+| Failure after staging | New rows rolled back; retry succeeded |
+| Actual child-process exit before commit | No partial snapshot promoted; next import marked the abandoned run interrupted and succeeded |
+| Competing importers | Second attempt was refused before loading; later retry was safe |
+| Lookup/parser revisions and source reversion | Pinned mapping preserved old meaning; deliberate reprocessing/reactivation passed |
+| Report during refresh | Summary, daily counts and causes stayed on the same selected snapshot |
+| Real SQL report, exact route 102, January 2025 inclusive | **65 records**, 65 numeric delay samples, 1 reported zero; median recorded delay **20 minutes** |
+| Independent raw-CSV check | Record count, numeric sample count and median matched; daily/cause totals each reconciled to 65 |
+| CLI and local database helper | Real CLI report matched captured results; SQL-based server status and setup rerun succeeded |
 
-All ten files in the existing portfolio source were hashed before and after implementation and were unchanged, including its paper/photo assets. The local project has no remote or deployment configured.
+The SQL report is captured in `docs/evidence/route-102-2025-01.json`; latest attempts, last successes and active versions are captured separately in `docs/evidence/data-health.json`.
 
-**Not yet claimed:** a real PostgreSQL import, passing database integration tests, SQL output from PostgreSQL, import/query performance, a running API, a browser demo, deployed URLs or users. A 107,349-row Python profile does not substitute for the database acceptance gate.
+### What the database tests caught
 
-## Blocking action and next task
+The first PostgreSQL run caught a lookup-loading bug that parser unit tests did not expose: `dict()` treated SQLAlchemy's result as a mapping rather than consuming row pairs. Explicit row unpacking fixed it. The full 43-test suite then passed. This is an explainable regression caught by testing the real database workflow.
 
-The PostgreSQL binaries and startup script are ready. The restricted app runner cannot start the server. Run the following in the Mac's own Terminal, or start the server there and resume this chat:
+The startup script's process-only status check also misread a Terminal-started server inside the restricted runner. It now verifies the connected server's data directory through SQL. Server startup/stop still belongs in Terminal while the app's process/shared-memory restriction applies; connecting to the running server works after local connection access is granted.
 
-```sh
-cd /Users/davidwu/Documents/Codex/know-your-commute
-.venv/bin/python scripts/verify_phase1.py --local-postgres
-```
+### Measurements, with limits
 
-This is the complete gate, not a permission request for hosting. It uses the already archived official source and a separate `commute_test` database. If any check fails, retain the failure output and fix the implementation; do not mark Phase 1 complete. The script appends a verified completion entry and saves actual evidence only after every check passes.
+One observed local gate run, with an already running server and successful first imports:
 
-Once that gate passes, continue Phase 2's tested FastAPI reporting API. Build the React/TypeScript/Vite dashboard only after the data workflow is verified. Preserve charcoal/off-white/warm amber and the existing portfolio's paper/photos; no portfolio work is authorized in this slice.
+- Lookup plus 107,349-row import: 5.715 seconds.
+- Same-byte lookup/delay rerun: 0.020 seconds.
+- Route/date report: 5.27 ms.
+- Database size after the gate: 79,345,331 bytes.
+
+These are recorded single-run observations, not controlled cold-cache benchmarks, production service guarantees or résumé impact claims. The initial validation/download-only record is preserved as historical evidence in `docs/evidence/local-checks.json`; it is superseded by the successful database gate.
+
+## Other verification
+
+- Real `commute fetch` reproduced the inspected resource hashes; evidence in `docs/evidence/source-fetch.json`.
+- Wheel/source-distribution build passed and packaged all four report SQL resources; raw data, database files, environment secrets and local tools were excluded.
+- Dependency lock check and Python compilation passed.
+- All ten files in the existing portfolio source were hashed before and after implementation and were unchanged, including the research paper/photo assets.
+- GitHub Actions is configured locally, but no remote CI run, public repository, live API, browser app, deployment or users are claimed.
+
+## Next task — Phase 2
+
+Implement the read-only FastAPI route listing, shared route/date filters, summaries/patterns, stable record pagination and data-health response models. Reuse the snapshot-selection/report definitions and test each endpoint against a hand-checked PostgreSQL fixture. Keep internal provenance/error diagnostics out of the public response.
+
+After that API gate, build the React/TypeScript/Vite dashboard with charcoal, off-white and warm amber, accessible filters/charts, URL state and explicit historical-data limitations. No portfolio changes, account provisioning or purchases are needed for those local phases.

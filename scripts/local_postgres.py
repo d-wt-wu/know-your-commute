@@ -22,6 +22,16 @@ def run(args, **kwargs):
     return subprocess.run([str(a) for a in args], check=True, **kwargs)
 
 
+def server_ready():
+    """Use SQL when the app cannot inspect a server started from Terminal."""
+    result = subprocess.run(
+        [str(PREFIX / "bin/psql"), "-X", "-h", "127.0.0.1", "-p", "54329", "-U", "commute",
+         "-d", "postgres", "-tAc", "SHOW data_directory"],
+        env=ENV, capture_output=True, text=True, timeout=5,
+    )
+    return result.returncode == 0 and Path(result.stdout.strip()).resolve() == PGDATA.resolve()
+
+
 def install():
     if (PREFIX / "bin/pg_ctl").exists():
         return
@@ -63,13 +73,13 @@ def main():
                 password.unlink(missing_ok=True)
     if args.action in {"setup", "start"}:
         status = subprocess.run([str(PREFIX / "bin/pg_ctl"), "-D", str(PGDATA), "status"], capture_output=True)
-        if status.returncode:
+        if status.returncode and not server_ready():
             # A loopback-only developer database, never a system service.
             run([PREFIX / "bin/pg_ctl", "-D", PGDATA, "-l", WORK / "postgres-server.log",
                  "-o", f"-h 127.0.0.1 -p 54329 -k {WORK}", "-w", "start"])
         for database in ["commute", "commute_test"]:
             result = subprocess.run(
-                [str(PREFIX / "bin/psql"), "-h", "127.0.0.1", "-p", "54329", "-U", "commute",
+                [str(PREFIX / "bin/psql"), "-X", "-h", "127.0.0.1", "-p", "54329", "-U", "commute",
                  "-d", "postgres", "-tAc", f"SELECT 1 FROM pg_database WHERE datname = '{database}'"],
                 env=ENV, capture_output=True, text=True, check=True,
             )
@@ -79,7 +89,10 @@ def main():
     elif args.action == "stop":
         run([PREFIX / "bin/pg_ctl", "-D", PGDATA, "-m", "fast", "-w", "stop"])
     else:
-        run([PREFIX / "bin/pg_ctl", "-D", PGDATA, "status"])
+        if server_ready():
+            print("This project's PostgreSQL server is accepting connections at 127.0.0.1:54329.")
+        else:
+            raise SystemExit("Cannot confirm this project's server: it may be stopped or the connection may be blocked.")
 
 
 if __name__ == "__main__":

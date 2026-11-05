@@ -63,7 +63,7 @@ The lookup can change independently. A delay snapshot stores the exact lookup sn
 5. Fingerprints exclude `_id` when looking for repeated payloads within one file. Every matching row is kept and flagged. No uniqueness constraint on source ID or payload removes records.
 6. Same content + resource + parser/contract + lookup reuses the successful snapshot. Each attempt still gets an audit entry. A revision is a complete replacement for this cumulative resource, never an append. A byte-for-byte reversion can reactivate the earlier snapshot.
 7. Per-resource session advisory locks exclude competing importers. Snapshot rows, raw/typed/rejected rows, active-pointer update and success audit commit together. Any exception rolls back that transaction. Audit failures commit separately; the previous active pointer survives.
-8. A process death can leave an audit row `running`; the next successful lock holder marks abandoned attempts `interrupted`. No partially committed snapshot is promoted. This recovery protocol requires PostgreSQL integration verification before Phase 1 is accepted.
+8. A process death can leave an audit row `running`; the next successful lock holder marks abandoned attempts `interrupted`. No partially committed snapshot is promoted. The PostgreSQL integration suite verified this with an actual child-process exit before commit; see [Phase 1 evidence](evidence/phase1-checks.json).
 
 ## Verified source profile
 

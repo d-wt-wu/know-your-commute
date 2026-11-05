@@ -1,0 +1,408 @@
+{
+  "filters": {
+    "route": "102",
+    "start": "2025-01-01",
+    "end": "2025-01-31",
+    "date_bounds": "inclusive"
+  },
+  "source": {
+    "id": "683ca275-a2a9-4380-8ce6-36a0c840a384",
+    "content_sha256": "2bc395f3c0db59010daf42bd97dcc6f2c3006c3646f58cf2d2cd42cba6e1b1f3",
+    "source_url": "https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/e271cdae-8788-4980-96ce-6a5c95bc6618/resource/b5725365-9252-4bfe-b6f4-cda7ddf74341/download/ttc-bus-delay-data-since-2025.csv",
+    "source_last_modified": "2026-10-26T12:32:23.781000",
+    "retrieved_at": "2026-11-05 02:11:04.553085-05:00",
+    "lookup_snapshot_id": "0b429125-56d3-41b5-bdec-5d077b94fe14",
+    "parser_version": "1",
+    "contract_version": "1"
+  },
+  "loaded_coverage": {
+    "start": "2025-01-01",
+    "end": "2026-09-30",
+    "meaning": "Observed record dates, not a guarantee of complete disruption reporting."
+  },
+  "quality": {
+    "scope": "entire_active_delay_snapshot",
+    "raw_count": 107349,
+    "accepted_count": 107349,
+    "rejected_count": 0,
+    "warning_record_count": 46723,
+    "warning_counts": {
+      "bound_missing": 22906,
+      "code_unmapped": 6925,
+      "route_missing": 1314,
+      "route_unparsed": 462,
+      "repeated_payload": 599,
+      "weekday_mismatch": 130,
+      "gap_zero_reported": 14036,
+      "bound_unrecognized": 26,
+      "delay_zero_reported": 13787,
+      "vehicle_zero_reported": 5410,
+      "description_encoding_suspect": 15593
+    },
+    "extra_columns": []
+  },
+  "summary": {
+    "reported_records": 65,
+    "valid_delay_samples": 65,
+    "zero_delay_samples": 1,
+    "median_recorded_delay_minutes": 20.0,
+    "mean_recorded_delay_minutes": "19.2000000000000000",
+    "valid_gap_samples": 65,
+    "flagged_records": 11,
+    "first_matching_date": "2025-01-01",
+    "last_matching_date": "2025-01-31"
+  },
+  "daily_records": [
+    {
+      "report_date": "2025-01-01",
+      "reported_records": 1
+    },
+    {
+      "report_date": "2025-01-02",
+      "reported_records": 2
+    },
+    {
+      "report_date": "2025-01-03",
+      "reported_records": 5
+    },
+    {
+      "report_date": "2025-01-04",
+      "reported_records": 3
+    },
+    {
+      "report_date": "2025-01-05",
+      "reported_records": 1
+    },
+    {
+      "report_date": "2025-01-06",
+      "reported_records": 3
+    },
+    {
+      "report_date": "2025-01-07",
+      "reported_records": 8
+    },
+    {
+      "report_date": "2025-01-08",
+      "reported_records": 3
+    },
+    {
+      "report_date": "2025-01-09",
+      "reported_records": 2
+    },
+    {
+      "report_date": "2025-01-10",
+      "reported_records": 3
+    },
+    {
+      "report_date": "2025-01-11",
+      "reported_records": 1
+    },
+    {
+      "report_date": "2025-01-12",
+      "reported_records": 2
+    },
+    {
+      "report_date": "2025-01-14",
+      "reported_records": 2
+    },
+    {
+      "report_date": "2025-01-15",
+      "reported_records": 3
+    },
+    {
+      "report_date": "2025-01-16",
+      "reported_records": 1
+    },
+    {
+      "report_date": "2025-01-17",
+      "reported_records": 1
+    },
+    {
+      "report_date": "2025-01-20",
+      "reported_records": 4
+    },
+    {
+      "report_date": "2025-01-21",
+      "reported_records": 3
+    },
+    {
+      "report_date": "2025-01-23",
+      "reported_records": 3
+    },
+    {
+      "report_date": "2025-01-24",
+      "reported_records": 2
+    },
+    {
+      "report_date": "2025-01-25",
+      "reported_records": 1
+    },
+    {
+      "report_date": "2025-01-27",
+      "reported_records": 1
+    },
+    {
+      "report_date": "2025-01-28",
+      "reported_records": 2
+    },
+    {
+      "report_date": "2025-01-29",
+      "reported_records": 2
+    },
+    {
+      "report_date": "2025-01-30",
+      "reported_records": 3
+    },
+    {
+      "report_date": "2025-01-31",
+      "reported_records": 3
+    }
+  ],
+  "causes": [
+    {
+      "incident_code": "EFO",
+      "description": "OTHER",
+      "mapping_status": "mapped",
+      "reported_records": 16
+    },
+    {
+      "incident_code": "TFO",
+      "description": "OTHER â SWITCH VIOLATION",
+      "mapping_status": "mapped",
+      "reported_records": 7
+    },
+    {
+      "incident_code": "MFDV",
+      "description": "ON DIVERSION",
+      "mapping_status": "mapped",
+      "reported_records": 5
+    },
+    {
+      "incident_code": "MFSH",
+      "description": "USED AS SHUTTLE BUS",
+      "mapping_status": "mapped",
+      "reported_records": 5
+    },
+    {
+      "incident_code": "EFD",
+      "description": "DOORS",
+      "mapping_status": "mapped",
+      "reported_records": 4
+    },
+    {
+      "incident_code": "TFCNO",
+      "description": "NO OPERATOR AVAILABLE",
+      "mapping_status": "mapped",
+      "reported_records": 4
+    },
+    {
+      "incident_code": "EFB",
+      "description": "BODY",
+      "mapping_status": "mapped",
+      "reported_records": 3
+    },
+    {
+      "incident_code": "EFP",
+      "description": "PROPULSION",
+      "mapping_status": "mapped",
+      "reported_records": 3
+    },
+    {
+      "incident_code": "MFSAN",
+      "description": "UNSANITARY",
+      "mapping_status": "mapped",
+      "reported_records": 3
+    },
+    {
+      "incident_code": "SFDP",
+      "description": "DISORDERLY PATRON",
+      "mapping_status": "mapped",
+      "reported_records": 3
+    },
+    {
+      "incident_code": "EFHVA",
+      "description": "HEAT / VENT / AC",
+      "mapping_status": "mapped",
+      "reported_records": 2
+    },
+    {
+      "incident_code": "EFRA",
+      "description": "RAMP ISSUES",
+      "mapping_status": "mapped",
+      "reported_records": 2
+    },
+    {
+      "incident_code": "MFTO",
+      "description": "ILL OPERATOR & NON CHARGEABLE OPERATOR ISSUES",
+      "mapping_status": "mapped",
+      "reported_records": 2
+    },
+    {
+      "incident_code": "MFESA",
+      "description": "NO OPERATOR AVAILABLE DUE TO ESA",
+      "mapping_status": "mapped",
+      "reported_records": 1
+    },
+    {
+      "incident_code": "MFO",
+      "description": "OTHER",
+      "mapping_status": "mapped",
+      "reported_records": 1
+    },
+    {
+      "incident_code": "MFUI",
+      "description": "ILL CUSTOMER - TRANSPORTED",
+      "mapping_status": "mapped",
+      "reported_records": 1
+    },
+    {
+      "incident_code": "MFWEA",
+      "description": "WEATHER RELATED",
+      "mapping_status": "mapped",
+      "reported_records": 1
+    },
+    {
+      "incident_code": "SFO",
+      "description": "OTHER",
+      "mapping_status": "mapped",
+      "reported_records": 1
+    },
+    {
+      "incident_code": "TFPD",
+      "description": "TTC COLLISION â PROPERTY DAMAGE",
+      "mapping_status": "mapped",
+      "reported_records": 1
+    }
+  ],
+  "examples": [
+    {
+      "row_number": 2,
+      "source_id": "1",
+      "report_date": "2025-01-01",
+      "report_time": "02:15:00",
+      "route_identifier": "102",
+      "route_label": "102 MARKHAM ROAD",
+      "incident_code": "MFESA",
+      "delay_minutes": 20,
+      "gap_minutes": 40,
+      "quality_flags": []
+    },
+    {
+      "row_number": 182,
+      "source_id": "181",
+      "report_date": "2025-01-02",
+      "report_time": "18:35:00",
+      "route_identifier": "102",
+      "route_label": "102 MARKHAM ROAD",
+      "incident_code": "EFO",
+      "delay_minutes": 30,
+      "gap_minutes": 60,
+      "quality_flags": []
+    },
+    {
+      "row_number": 189,
+      "source_id": "188",
+      "report_date": "2025-01-02",
+      "report_time": "20:06:00",
+      "route_identifier": "102",
+      "route_label": "102 MARKHAM ROAD",
+      "incident_code": "MFDV",
+      "delay_minutes": 102,
+      "gap_minutes": 135,
+      "quality_flags": []
+    },
+    {
+      "row_number": 215,
+      "source_id": "214",
+      "report_date": "2025-01-03",
+      "report_time": "06:24:00",
+      "route_identifier": "102",
+      "route_label": "102 MARKHAM ROAD",
+      "incident_code": "SFDP",
+      "delay_minutes": 30,
+      "gap_minutes": 60,
+      "quality_flags": []
+    },
+    {
+      "row_number": 217,
+      "source_id": "216",
+      "report_date": "2025-01-03",
+      "report_time": "06:38:00",
+      "route_identifier": "102",
+      "route_label": "102 MARKHAM ROAD",
+      "incident_code": "MFSH",
+      "delay_minutes": 20,
+      "gap_minutes": 40,
+      "quality_flags": []
+    },
+    {
+      "row_number": 225,
+      "source_id": "224",
+      "report_date": "2025-01-03",
+      "report_time": "07:41:00",
+      "route_identifier": "102",
+      "route_label": "102 MARKHAM ROAD",
+      "incident_code": "MFSH",
+      "delay_minutes": 10,
+      "gap_minutes": 20,
+      "quality_flags": []
+    },
+    {
+      "row_number": 289,
+      "source_id": "288",
+      "report_date": "2025-01-03",
+      "report_time": "17:51:00",
+      "route_identifier": "102",
+      "route_label": "102 MARKHAM ROAD",
+      "incident_code": "SFDP",
+      "delay_minutes": 10,
+      "gap_minutes": 20,
+      "quality_flags": []
+    },
+    {
+      "row_number": 297,
+      "source_id": "296",
+      "report_date": "2025-01-03",
+      "report_time": "18:44:00",
+      "route_identifier": "102",
+      "route_label": "102 MARKHAM ROAD",
+      "incident_code": "TFO",
+      "delay_minutes": 20,
+      "gap_minutes": 40,
+      "quality_flags": [
+        "description_encoding_suspect"
+      ]
+    },
+    {
+      "row_number": 348,
+      "source_id": "347",
+      "report_date": "2025-01-04",
+      "report_time": "08:45:00",
+      "route_identifier": "102",
+      "route_label": "102 MARKHAM ROAD",
+      "incident_code": "EFO",
+      "delay_minutes": 32,
+      "gap_minutes": 64,
+      "quality_flags": []
+    },
+    {
+      "row_number": 361,
+      "source_id": "360",
+      "report_date": "2025-01-04",
+      "report_time": "12:23:00",
+      "route_identifier": "102",
+      "route_label": "102 MARKHAM ROAD",
+      "incident_code": "EFO",
+      "delay_minutes": 31,
+      "gap_minutes": 62,
+      "quality_flags": []
+    }
+  ],
+  "definitions": {
+    "count": "Reported delay records; no trip-level exposure denominator is available.",
+    "delay": "Recorded minutes of delay to the following bus's schedule; valid nonnegative numeric values, including reported zeroes.",
+    "gap": "Separate publisher field; not added to delay or interpreted as passenger time.",
+    "time": "Source date and wall-clock time; timezone and overnight service rules remain unconfirmed.",
+    "missing_days": "Daily output includes observed matching dates only; absent dates are not asserted zero."
+  }
+}

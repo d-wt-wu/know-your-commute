@@ -42,6 +42,12 @@ jobs:
       - name: PostgreSQL 17 backup/restore client tools
         run: |
           if ! test -x "$PG_BIN/pg_dump"; then
+            sudo install -d /usr/share/postgresql-common/pgdg
+            sudo curl --fail --silent --show-error --location \
+              --output /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc \
+              https://www.postgresql.org/media/keys/ACCC4CF8.asc
+            printf '%s\n' 'deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt noble-pgdg main' \
+              | sudo tee /etc/apt/sources.list.d/pgdg.list > /dev/null
             sudo apt-get update
             sudo apt-get install --yes postgresql-client-17
           fi

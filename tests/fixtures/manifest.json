@@ -1,0 +1,113 @@
+{
+  "dataset_url": "https://open.toronto.ca/dataset/ttc-bus-delay-data/",
+  "attribution": "Contains information licensed under the Open Government Licence – Toronto.",
+  "licence_url": "https://open.toronto.ca/open-data-licence/",
+  "source_manifest": "docs/source-manifest.json",
+  "delay_source_sha256": "2bc395f3c0db59010daf42bd97dcc6f2c3006c3646f58cf2d2cd42cba6e1b1f3",
+  "lookup_source_sha256": "17a32cce4dadf783466603c49988c3eeaf15c9fb77f4bd7654d25bf630da0484",
+  "fixture_sha256": "ff4496d3d77b1934306e4ec4217fc28593df6a063546cee6d25ac0cf0451abe7",
+  "selection": "First twelve source rows, first examples of named quality flags, first repeated payload pair, last row; unique source positions, sorted.",
+  "transformation": "Original cell strings, UTF-8, CRLF CSV serialization; no value corrections or deduplication.",
+  "rows": [
+    {
+      "fixture_row_number": 2,
+      "source_row_number": 2,
+      "source_id": "1"
+    },
+    {
+      "fixture_row_number": 3,
+      "source_row_number": 3,
+      "source_id": "2"
+    },
+    {
+      "fixture_row_number": 4,
+      "source_row_number": 4,
+      "source_id": "3"
+    },
+    {
+      "fixture_row_number": 5,
+      "source_row_number": 5,
+      "source_id": "4"
+    },
+    {
+      "fixture_row_number": 6,
+      "source_row_number": 6,
+      "source_id": "5"
+    },
+    {
+      "fixture_row_number": 7,
+      "source_row_number": 7,
+      "source_id": "6"
+    },
+    {
+      "fixture_row_number": 8,
+      "source_row_number": 8,
+      "source_id": "7"
+    },
+    {
+      "fixture_row_number": 9,
+      "source_row_number": 9,
+      "source_id": "8"
+    },
+    {
+      "fixture_row_number": 10,
+      "source_row_number": 10,
+      "source_id": "9"
+    },
+    {
+      "fixture_row_number": 11,
+      "source_row_number": 11,
+      "source_id": "10"
+    },
+    {
+      "fixture_row_number": 12,
+      "source_row_number": 12,
+      "source_id": "11"
+    },
+    {
+      "fixture_row_number": 13,
+      "source_row_number": 13,
+      "source_id": "12"
+    },
+    {
+      "fixture_row_number": 14,
+      "source_row_number": 30,
+      "source_id": "29"
+    },
+    {
+      "fixture_row_number": 15,
+      "source_row_number": 61,
+      "source_id": "60"
+    },
+    {
+      "fixture_row_number": 16,
+      "source_row_number": 190,
+      "source_id": "189"
+    },
+    {
+      "fixture_row_number": 17,
+      "source_row_number": 191,
+      "source_id": "190"
+    },
+    {
+      "fixture_row_number": 18,
+      "source_row_number": 284,
+      "source_id": "283"
+    },
+    {
+      "fixture_row_number": 19,
+      "source_row_number": 79182,
+      "source_id": "79181"
+    },
+    {
+      "fixture_row_number": 20,
+      "source_row_number": 83352,
+      "source_id": "83351"
+    },
+    {
+      "fixture_row_number": 21,
+      "source_row_number": 107350,
+      "source_id": "107349"
+    }
+  ]
+}

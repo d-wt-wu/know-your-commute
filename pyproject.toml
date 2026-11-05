@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "know-your-commute"
+version = "0.1.0"
+description = "Historical TTC bus delay records, with reproducible imports and explicit data quality."
+authors = [{name = "Wentao Wu"}]
+requires-python = ">=3.13,<3.14"
+dependencies = [
+  "sqlalchemy>=2.0.44,<2.2",
+  "alembic>=1.17,<2",
+  "psycopg[binary]>=3.2,<4",
+  "httpx>=0.28,<1",
+]
+
+[dependency-groups]
+dev = ["pytest>=8.4,<10", "pytest-cov>=6,<8"]
+
+[project.scripts]
+commute = "commute.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/commute"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-ra"
+markers = ["integration: requires a dedicated PostgreSQL database ending in _test"]

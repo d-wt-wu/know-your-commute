@@ -1,0 +1,168 @@
+{
+  "content_sha256": "2bc395f3c0db59010daf42bd97dcc6f2c3006c3646f58cf2d2cd42cba6e1b1f3",
+  "lookup_sha256": "17a32cce4dadf783466603c49988c3eeaf15c9fb77f4bd7654d25bf630da0484",
+  "columns": [
+    "_id",
+    "Date",
+    "Line",
+    "Time",
+    "Day",
+    "Station",
+    "Code",
+    "Min Delay",
+    "Min Gap",
+    "Bound",
+    "Vehicle"
+  ],
+  "extra_columns": [],
+  "raw_records": 107349,
+  "accepted_records": 107349,
+  "rejected_records": 0,
+  "blank_lines": 0,
+  "observed_dates": {
+    "min": "2025-01-01",
+    "max": "2026-09-30",
+    "distinct": 638
+  },
+  "blank_cells": {
+    "_id": 0,
+    "Date": 0,
+    "Line": 1314,
+    "Time": 0,
+    "Day": 0,
+    "Station": 0,
+    "Code": 0,
+    "Min Delay": 0,
+    "Min Gap": 0,
+    "Bound": 22906,
+    "Vehicle": 0
+  },
+  "distinct_values": {
+    "_id": 107349,
+    "Date": 638,
+    "Line": 696,
+    "Time": 1440,
+    "Day": 7,
+    "Station": 17018,
+    "Code": 75,
+    "Min Delay": 698,
+    "Min Gap": 741,
+    "Bound": 18,
+    "Vehicle": 2787
+  },
+  "warning_record_count": 46723,
+  "warning_counts": {
+    "delay_zero_reported": 13787,
+    "gap_zero_reported": 14036,
+    "bound_missing": 22906,
+    "vehicle_zero_reported": 5410,
+    "description_encoding_suspect": 15593,
+    "route_missing": 1314,
+    "repeated_payload": 599,
+    "route_unparsed": 462,
+    "bound_unrecognized": 26,
+    "code_unmapped": 6925,
+    "weekday_mismatch": 130
+  },
+  "repeated_payload_groups": 299,
+  "repeated_payload_extra_rows": 300,
+  "unmapped_codes": {
+    "EFTI": 240,
+    "TFOR": 208,
+    "EFSD": 619,
+    "EFCEL": 677,
+    "EFAS": 396,
+    "MFIE": 114,
+    "EFWS": 123,
+    "EFCE": 102,
+    "EFFL": 436,
+    "MFAFR": 53,
+    "MFDI": 77,
+    "SFL": 520,
+    "MFINF": 18,
+    "MFGD": 1202,
+    "EFLT": 147,
+    "MFFL": 444,
+    "EFTRM": 142,
+    "EFEX": 73,
+    "MFWR": 8,
+    "TFDM": 90,
+    "EFWA": 106,
+    "EFSP": 52,
+    "MFSE": 33,
+    "EFVIS": 436,
+    "EFVC": 93,
+    "SFG": 31,
+    "TFUT": 30,
+    "MFBD": 36,
+    "EFPO": 4,
+    "EFSE": 95,
+    "EFFS": 46,
+    "MFBIO": 168,
+    "EFBK": 4,
+    "TFAV": 101,
+    "XXXXX": 1
+  },
+  "lookup_entries": 46,
+  "lookup_warning_counts": {
+    "description_encoding_suspect": 10
+  },
+  "scope": "A profile of these exact bytes, not proof of complete service coverage or stable source identifiers.",
+  "readme_cells": [
+    [
+      "Field Name",
+      "Description",
+      "Example"
+    ],
+    [
+      "Report Date",
+      "The date (YYYY/MM/DD) when the delay-causing incident occurred",
+      "42906"
+    ],
+    [
+      "Route",
+      "The number of the bus route",
+      "51"
+    ],
+    [
+      "Time",
+      "The time (hh:mm:ss AM/PM) when the delay-causing incident occurred",
+      "2.4305555555555556E-2"
+    ],
+    [
+      "Day",
+      "The name of the day",
+      "Monday"
+    ],
+    [
+      "Location",
+      "The location of the delay-causing incident",
+      "York Mills Station"
+    ],
+    [
+      "Incident",
+      "The description of the delay-causing incident",
+      "Mechanical"
+    ],
+    [
+      "Min Delay",
+      "The delay, in minutes, to the schedule for the following bus",
+      "10"
+    ],
+    [
+      "Min Gap",
+      "The total scheduled time, in minutes, from the bus ahead of the following bus",
+      "20"
+    ],
+    [
+      "Direction",
+      "The direction of the bus route where B,b or BW indicates both ways. (On an east west route, it includes both east and west)                                           NB - northbound, SB - southbound, EB - eastbound, WB - westbound",
+      "N"
+    ],
+    [
+      "Vehicle",
+      "Vehicle number",
+      "1057"
+    ]
+  ]
+}

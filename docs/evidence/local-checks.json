@@ -1,0 +1,13 @@
+{
+  "checked_at": "2026-11-05T08:48:19.793639+00:00",
+  "command": "pytest -q --junitxml=work/check-results.xml",
+  "passed": 23,
+  "skipped": 20,
+  "failed": 0,
+  "integration_cases": 20,
+  "integration_status": "Not executed: local PostgreSQL startup is blocked by the app runner; TEST_DATABASE_URL was deliberately not set to pretend availability.",
+  "migration": "Frozen upgrade/downgrade compiled for PostgreSQL dialect; not applied to a server.",
+  "database_startup_error": "initdb: could not create shared memory segment: Operation not permitted; failed system call shmget, size=56.",
+  "source_profile_sha256": "87d5a9005eb111c64b7ea3a44e647f13d456f966ce0299fe66748446354f2dae",
+  "portfolio": "All 10 baseline file content hashes matched after implementation."
+}

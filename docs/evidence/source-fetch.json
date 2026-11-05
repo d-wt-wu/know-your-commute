@@ -1,0 +1,52 @@
+{
+  "command": "commute fetch --directory data/verified-fetch",
+  "manifest": "data/verified-fetch/manifest-b0d0adf594f52bb5ef654c365da31ab07080f23fd1954b099d13c3491ebb26ad.json",
+  "result": "succeeded; both CSVs match the original inspection hashes",
+  "resources": [
+    {
+      "id": "71bb1283-7388-4d23-aa4e-0f393a80abce",
+      "name": "ttc-bus-delay-data-readme",
+      "url": "https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/e271cdae-8788-4980-96ce-6a5c95bc6618/resource/71bb1283-7388-4d23-aa4e-0f393a80abce/download/ttc-bus-delay-data-readme.xlsx",
+      "path": "4b6c5e3ad5c39fc9a6f1d4160f8f5ea851945bcfdc319b330bd83018fbc99134-readme.xlsx",
+      "sha256": "4b6c5e3ad5c39fc9a6f1d4160f8f5ea851945bcfdc319b330bd83018fbc99134",
+      "bytes": 12839,
+      "retrieved_at": "2026-11-05T08:39:39.199540+00:00",
+      "source_last_modified": "2022-04-05T19:21:58",
+      "http_headers": {
+        "etag": "\"1649789151.847-12839-853938604\"",
+        "last-modified": "Tue, 12 Apr 2022 18:45:51 GMT",
+        "content-type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      }
+    },
+    {
+      "id": "874ae66c-9f6f-443f-91e0-1d37d416e0d8",
+      "name": "Code Descriptions.csv",
+      "url": "https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/e271cdae-8788-4980-96ce-6a5c95bc6618/resource/874ae66c-9f6f-443f-91e0-1d37d416e0d8/download/code-descriptions.csv",
+      "path": "17a32cce4dadf783466603c49988c3eeaf15c9fb77f4bd7654d25bf630da0484-codes.csv",
+      "sha256": "17a32cce4dadf783466603c49988c3eeaf15c9fb77f4bd7654d25bf630da0484",
+      "bytes": 1340,
+      "retrieved_at": "2026-11-05T08:39:39.325484+00:00",
+      "source_last_modified": "2025-04-07T19:21:37.400182",
+      "http_headers": {
+        "etag": "\"1744053697.915-1340-1022103961\"",
+        "last-modified": "Mon, 07 Apr 2025 19:21:37 GMT",
+        "content-type": "application/octet-stream"
+      }
+    },
+    {
+      "id": "b5725365-9252-4bfe-b6f4-cda7ddf74341",
+      "name": "TTC Bus Delay Data since 2025.csv",
+      "url": "https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/e271cdae-8788-4980-96ce-6a5c95bc6618/resource/b5725365-9252-4bfe-b6f4-cda7ddf74341/download/ttc-bus-delay-data-since-2025.csv",
+      "path": "2bc395f3c0db59010daf42bd97dcc6f2c3006c3646f58cf2d2cd42cba6e1b1f3-delays.csv",
+      "sha256": "2bc395f3c0db59010daf42bd97dcc6f2c3006c3646f58cf2d2cd42cba6e1b1f3",
+      "bytes": 9970896,
+      "retrieved_at": "2026-11-05T08:39:39.734250+00:00",
+      "source_last_modified": "2026-10-26T12:32:23.781000",
+      "http_headers": {
+        "etag": "\"1793017944.175-9970896-932778431\"",
+        "last-modified": "Mon, 26 Oct 2026 12:32:24 GMT",
+        "content-type": "application/octet-stream"
+      }
+    }
+  ]
+}

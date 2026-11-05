@@ -1,0 +1,41 @@
+name: Python and PostgreSQL checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  data-workflow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:17.11-bookworm
+        env:
+          POSTGRES_USER: commute
+          POSTGRES_PASSWORD: commute_ci
+          POSTGRES_DB: commute_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U commute -d commute_test"
+          --health-interval 3s
+          --health-timeout 3s
+          --health-retries 20
+    env:
+      TEST_DATABASE_URL: postgresql+psycopg://commute:commute_ci@127.0.0.1:5432/commute_test
+      REQUIRE_INTEGRATION_TESTS: "1"
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: "0.13.7"
+          python-version: "3.13"
+          enable-cache: true
+      - run: uv sync --locked
+      - name: Unit and PostgreSQL integration checks (including migrations)
+        run: uv run --locked pytest

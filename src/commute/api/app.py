@@ -15,6 +15,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from commute.api import models
 from commute.db.connection import database_engine
 from commute.db import explorer
+from commute.db.permissions import verify_api_role
 from commute.query import InvalidRange, MissingSnapshot, NoData
 
 logger = logging.getLogger(__name__)
@@ -37,9 +38,12 @@ def get_engine(request: Request):
 def create_app(engine=None, web_dir: Path | None = None):
     @asynccontextmanager
     async def lifespan(app):
-        owned = engine is None and bool(os.environ.get("DATABASE_URL"))
+        owned = engine is None and bool(os.environ.get("COMMUTE_API_DATABASE_URL") or os.environ.get("DATABASE_URL"))
         app.state.engine = database_engine() if owned else engine
         try:
+            if owned and os.environ.get("COMMUTE_REQUIRE_READONLY") == "1":
+                with app.state.engine.connect() as connection:
+                    verify_api_role(connection)
             yield
         finally:
             if owned:

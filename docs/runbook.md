@@ -157,3 +157,12 @@ provider allowances and credential boundary. Hosting is a separate account/plan
 decision. `docs/operations.md` describes the opt-in weekly refresh, private logical
 backup/restore commands and measured query plans. No production credentials or
 public app URL are embedded in this checkout.
+
+## Hosted Neon checkout
+
+The selected Neon database is now loaded and verified. Use `npm run build` then
+`npm start` at the root to load the private Neon environment and enforce the
+read-only API role. The local-database launcher remains separate. For the exact
+connection selection, migration/import/rerun proof, skills/MCP configuration and
+limitations, see `docs/neon-setup.md`. The actual hosted server is PostgreSQL 18.6;
+logical backup commands require matching 18 client tools.

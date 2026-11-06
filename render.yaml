@@ -4,10 +4,12 @@ services:
     name: know-your-commute
     runtime: docker
     plan: free
-    region: ohio
+    region: virginia
     dockerfilePath: ./Dockerfile
     healthCheckPath: /api/v1/health
     autoDeployTrigger: "off"
     envVars:
       - key: DATABASE_URL
         sync: false
+      - key: COMMUTE_REQUIRE_READONLY
+        value: "1"

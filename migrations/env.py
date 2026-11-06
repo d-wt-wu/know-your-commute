@@ -18,7 +18,7 @@ def run_migrations_online():
         with context.begin_transaction():
             context.run_migrations()
         return
-    engine = database_engine()
+    engine = database_engine(purpose="writer")
     with engine.connect() as connection:
         context.configure(connection=connection, target_metadata=metadata, compare_type=True)
         with context.begin_transaction():

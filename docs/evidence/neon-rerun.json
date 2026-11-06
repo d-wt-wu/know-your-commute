@@ -1,0 +1,112 @@
+{
+  "checked_at": "2026-11-06T00:14:09.841209+00:00",
+  "target": {
+    "project_id": "shiny-frog-92110874",
+    "branch": "production",
+    "region": "aws-us-east-1"
+  },
+  "database": {
+    "name": "neondb",
+    "version": "18.6 (ac70818)",
+    "tls_active": true,
+    "api_login": "commute_api"
+  },
+  "migration": "0001",
+  "imports": [
+    {
+      "resource": "ttc-bus-codes",
+      "run_id": "98569d39-86bc-4095-b093-5768e8296316",
+      "snapshot_id": "b53910c3-56e1-4603-9055-4aea1b7c5c5d",
+      "status": "no_change",
+      "raw_count": 46,
+      "accepted_count": 46,
+      "rejected_count": 0,
+      "warning_record_count": 10
+    },
+    {
+      "resource": "ttc-bus-since-2025",
+      "run_id": "d237ece6-4362-4b1a-a272-e89c3cdf7055",
+      "snapshot_id": "c0d65b97-256c-44d8-937c-a4eddc06c528",
+      "status": "no_change",
+      "raw_count": 107349,
+      "accepted_count": 107349,
+      "rejected_count": 0,
+      "warning_record_count": 46723
+    }
+  ],
+  "identical_reruns": [
+    {
+      "resource": "ttc-bus-codes",
+      "run_id": "52e7b0b7-39fa-418b-a470-a5239ac50966",
+      "snapshot_id": "b53910c3-56e1-4603-9055-4aea1b7c5c5d",
+      "status": "no_change",
+      "raw_count": 46,
+      "accepted_count": 46,
+      "rejected_count": 0,
+      "warning_record_count": 10
+    },
+    {
+      "resource": "ttc-bus-since-2025",
+      "run_id": "bb929eb5-adc1-4d07-bc34-21ddcb0a32b0",
+      "snapshot_id": "c0d65b97-256c-44d8-937c-a4eddc06c528",
+      "status": "no_change",
+      "raw_count": 107349,
+      "accepted_count": 107349,
+      "rejected_count": 0,
+      "warning_record_count": 46723
+    }
+  ],
+  "api_role_created": false,
+  "denied_operations": {
+    "writes": "25006",
+    "raw_reads": "42501"
+  },
+  "route_102_january_summary": {
+    "reported_records": 65,
+    "valid_delay_samples": 65,
+    "zero_delay_samples": 1,
+    "median_recorded_delay_minutes": 20.0,
+    "mean_recorded_delay_minutes": "19.2000000000000000",
+    "valid_gap_samples": 65,
+    "flagged_records": 11,
+    "first_matching_date": "2025-01-01",
+    "last_matching_date": "2025-01-31"
+  },
+  "coverage": {
+    "start": "2025-01-01",
+    "end": "2026-09-30",
+    "meaning": "Observed record dates, not a guarantee of complete disruption reporting."
+  },
+  "source": {
+    "id": "c0d65b97-256c-44d8-937c-a4eddc06c528",
+    "content_sha256": "2bc395f3c0db59010daf42bd97dcc6f2c3006c3646f58cf2d2cd42cba6e1b1f3",
+    "source_url": "https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/e271cdae-8788-4980-96ce-6a5c95bc6618/resource/b5725365-9252-4bfe-b6f4-cda7ddf74341/download/ttc-bus-delay-data-since-2025.csv",
+    "source_last_modified": "2026-10-26T12:32:23.781000",
+    "retrieved_at": "2026-11-05 07:11:04.553085+00:00",
+    "lookup_snapshot_id": "b53910c3-56e1-4603-9055-4aea1b7c5c5d",
+    "parser_version": "1",
+    "contract_version": "1"
+  },
+  "quality": {
+    "scope": "entire_active_delay_snapshot",
+    "raw_count": 107349,
+    "accepted_count": 107349,
+    "rejected_count": 0,
+    "warning_record_count": 46723,
+    "warning_counts": {
+      "bound_missing": 22906,
+      "code_unmapped": 6925,
+      "route_missing": 1314,
+      "route_unparsed": 462,
+      "repeated_payload": 599,
+      "weekday_mismatch": 130,
+      "gap_zero_reported": 14036,
+      "bound_unrecognized": 26,
+      "delay_zero_reported": 13787,
+      "vehicle_zero_reported": 5410,
+      "description_encoding_suspect": 15593
+    },
+    "extra_columns": []
+  },
+  "elapsed_seconds": 6.505
+}

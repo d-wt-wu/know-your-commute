@@ -2,7 +2,7 @@
 
 Project owner: **Wentao Wu**. Updated 5 November 2026 (America/Toronto).
 
-**Current status: Phases 0–3 complete locally; Phase 4 gates passed locally and on GitHub.** The real-data importer/API/dashboard now have backup/restore verification, query-plan evidence, read-only API grants and passing automated browser checks. The source is public and the deployment container passed remote build/startup checks. Hosting account approvals remain before the website release. The existing portfolio remains separate and unchanged.
+**Current status: Phases 0–3 complete locally; Phase 4 gates passed locally and on GitHub.** The real-data importer/API/dashboard now have backup/restore verification, query-plan evidence, read-only API grants and passing automated browser checks. The source is public and the deployment container passed remote build/startup checks. Neon database setup is now verified; the public web-service release remains pending. See the latest Neon milestone below. The existing portfolio remains separate and unchanged.
 
 ## Phase 0 — Complete
 
@@ -107,3 +107,17 @@ These are recorded single-run observations, not controlled cold-cache benchmarks
 - Remaining: complete hosting sign-ins/permissions and confirm the Free plans, migrate/import the external database with a private writer connection, deploy with a separate read-only API connection, verify HTTPS and physical iPhone installation, then finish the case study/demo. No live app URL, deployment, users, purchase or portfolio edit is claimed. Render requires GitHub identity/email authorization; Neon is at sign-in. Automatic approval review rejected initiating Neon’s GitHub sign-in because new third-party account access needs explicit authorization. Neither hosting account authorization nor provisioning was completed.
 
 Recovery/automation details: `docs/operations.md`. The existing portfolio, paper and photos remain separate. True cold-cache and hosted end-to-end measurements remain future work; local summary timings are not production guarantees.
+
+## Neon connection — verified 5 November 2026
+
+- Linked the owner-specified project `shiny-frog-92110874`, production branch, and deployed the existing Postgres-only policy. Three private environment variables were pulled; no paid service or extra backend primitive was added.
+- The existing Neon database is PostgreSQL **18.6**. Applied Alembic migration 0001 and checked Core metadata agreement before importing the attributed official bundle. Loaded **107,349 delay rows** and **46 lookup entries**; identical reruns returned `no_change`.
+- Created an ordinary SQL API login with five explicit read grants. The real hosted connection used TLS and refused writes/raw-record reads. A complete setup rerun preserved the private credential file and reused the login.
+- Kept psycopg/SQLAlchemy for the Python backend. API reads select the pooled API connection; writers/migrations/backups select the direct connection and reject pooler URLs. Environment files remain private and ignored.
+- Added root `npm run build` / `npm start`, explicit environment-file loading and a read-only startup guard. **73 Python tests passed, zero skipped**; the root config/frontend build passed. CI now also targets major 18, matching the hosted database.
+- **Two read-only browser journeys passed against real Neon**, desktop and mobile: source summary/patterns, route/date filtering, paging, reload/history and data health. Route 102 January returned 65 / median 20 / n=65; January 1–15 returned 39.
+- Fetched the exact requested Neon skill; it matched the installed file. All seven local skills were up to date. Added a project-pinned OAuth MCP entry because the bundled server was absent from the current Codex inventory. No inline API key or existing global-server rewrite. MCP runtime/authentication is not verified in this chat.
+- Actual failures: CLI browser auth timed out once; normal global install hit EACCES, so `npx neon@latest` is the fallback; local database tests needed network access before all cases passed. Hosted backup verification needs PostgreSQL 18 clients and remains unrun.
+- The public website host and physical iPhone install remain pending. The app was started locally against hosted Neon and stopped after tests. Existing portfolio/paper/photos remain separate.
+
+Evidence and full change log: `docs/neon-setup.md`, `docs/evidence/neon-checks.json`, `neon-database.json`, `neon-rerun.json`.

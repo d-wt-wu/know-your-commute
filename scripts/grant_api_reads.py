@@ -12,7 +12,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--role", required=True)
     args = parser.parse_args()
-    engine = database_engine()
+    engine = database_engine(purpose="writer")
     try:
         with engine.begin() as connection:
             grant_api_reads(connection, args.role)

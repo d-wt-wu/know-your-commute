@@ -50,7 +50,8 @@ def main():
             downloads.resource(DELAYS)
             emit({"manifest": str(downloads.write_manifest())})
             return 0
-        engine = database_engine()
+        writer = args.command in {"refresh", "import-bundle", "backup", "restore-check"}
+        engine = database_engine(purpose="writer" if writer else "api")
         if args.command in {"refresh", "import-bundle"}:
             for resource in (CODES, DELAYS):
                 if args.command == "refresh":

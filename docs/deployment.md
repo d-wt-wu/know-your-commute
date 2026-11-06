@@ -28,8 +28,8 @@ project, TestFlight upload or App Store approval is claimed.
 
 | Component | Proposed setting | Verified limits and consequence |
 | --- | --- | --- |
-| Web/API | One Render Docker web service, Free, Ohio | 750 free instance hours per workspace/month. Idle after 15 minutes; waking takes about a minute. Files disappear across restarts/redeploys. Bandwidth/build limits also apply. |
-| Database | Separate Neon Free PostgreSQL 17 project, closest available US East region | $0, no card required, 100 CU-hours/project/month and 1 GB/project. Autosuspends after five idle minutes. Check the console's actual quota and region before creation. |
+| Web/API | One Render Docker web service, Free, Virginia | 750 free instance hours per workspace/month. Idle after 15 minutes; waking takes about a minute. Files disappear across restarts/redeploys. Bandwidth/build limits also apply. |
+| Database | Separate Neon Free PostgreSQL 17 project, AWS US East 1 (N. Virginia), matching the existing project | $0, no card required, 100 CU-hours/project/month and 1 GB/project. Autosuspends after five idle minutes. Check the console's actual quota and region before creation. |
 | Address | Host-provided HTTPS address | No domain purchase needed. No project hostname is invented in this repository. |
 
 Sources: [Render Free limits](https://render.com/docs/free), [Neon pricing](https://neon.com/pricing).
@@ -106,3 +106,5 @@ is bounded to three persistent plus two temporary connections per process, with 
 There is no automatic migration or import on app startup or visitor requests.
 Keep the existing portfolio separate until a verified public app/repository link
 exists and a portfolio update is requested.
+
+The owner-selected Neon project was verified in `aws-us-east-1` on 5 November 2026. The prepared Render region was updated from Ohio to Virginia to match that existing database; the database was not moved or recreated. See `neon-setup.md` for actual migration/import/browser evidence.

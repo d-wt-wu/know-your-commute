@@ -28,15 +28,20 @@ class BackupError(RuntimeError):
     pass
 
 
-def _tool(name: str, pg_bin: Path | None = None) -> str:
+def _tool(name: str, pg_bin: Path | None = None, major: int = 17) -> str:
     directory = pg_bin or os.environ.get("PG_BIN")
     path = str(Path(directory) / name) if directory else shutil.which(name)
     if not path or not Path(path).is_file():
-        raise BackupError(f"Install PostgreSQL 17 client tools or set PG_BIN; {name} is unavailable.")
+        raise BackupError(f"Install PostgreSQL {major} client tools or set PG_BIN; {name} is unavailable.")
     version = subprocess.run([path, "--version"], check=True, capture_output=True, text=True)
-    if not re.search(r"\b17\.", version.stdout):
-        raise BackupError("Use PostgreSQL 17 client tools for this project's PostgreSQL 17 backups.")
+    if not re.search(rf"\b{major}\.", version.stdout):
+        raise BackupError(f"This server/backup requires PostgreSQL {major} client tools. Set PG_BIN to matching tools.")
     return path
+
+
+def _server_major(engine) -> int:
+    with engine.connect() as connection:
+        return int(connection.scalar(sa.text("SHOW server_version_num"))) // 10000
 
 
 def _environment(url) -> dict[str, str]:
@@ -90,7 +95,7 @@ def _sha256(path: Path) -> str:
 
 
 def create_backup(engine, directory: Path, pg_bin: Path | None = None) -> Path:
-    executable = _tool("pg_dump", pg_bin)
+    executable = _tool("pg_dump", pg_bin, _server_major(engine))
     directory.mkdir(parents=True, exist_ok=True)
     basename = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + uuid4().hex
     archive, manifest = directory / (basename + ".dump"), directory / (basename + ".json")
@@ -146,7 +151,10 @@ def restore_check(engine, manifest: Path, pg_bin: Path | None = None) -> dict:
     separate manually created recovery project; never restore over the live app.
     """
     archive, expected = checked_archive(manifest)
-    executable = _tool("pg_restore", pg_bin)
+    major = int(expected["server_version"].split(".")[0])
+    if _server_major(engine) != major:
+        raise BackupError("Restore verification requires the same PostgreSQL major as the backup.")
+    executable = _tool("pg_restore", pg_bin, major)
     name = "commute_restore_" + uuid4().hex + "_test"
     admin = database_engine(engine.url.set(database="postgres"))
     restored = None

@@ -2,7 +2,7 @@
 
 An independent project by **Wentao Wu** for exploring historical reported TTC bus delay records. Select a bus route and date range, inspect recorded causes/durations, and follow a result back to its source rows and quality flags.
 
-**Status:** Working locally with **107,349 official records**, a tested PostgreSQL importer, FastAPI API and React/TypeScript dashboard. **68 Python checks and eight desktop/mobile browser checks passed locally.** A real backup was restored and every table fingerprint matched. The deployable container built and passed its startup check in [GitHub Actions](https://github.com/d-wt-wu/know-your-commute/actions/runs/42126800606). iPhone Home Screen configuration is prepared; hosting is not provisioned. See [progress](docs/progress.md).
+**Status:** The app is connected to hosted Neon PostgreSQL with **107,349 official records** and a separate read-only API login. **73 Python checks** and **two real-Neon desktop/mobile browser journeys** passed locally, along with the root build. The existing eight-case synthetic browser suite and container checks also run in CI. The public website host is not provisioned. See [Neon setup/results](docs/neon-setup.md) and [progress](docs/progress.md).
 
 Record counts cannot establish a bus trip's delay probability or rank route reliability: this source has no scheduled/operated-trip denominator. Recorded delay minutes describe delay to the following bus's schedule. They are not passenger-minutes lost. This is historical data, not live arrivals.
 
@@ -55,6 +55,13 @@ This example path is a placeholder, not a created file. Use the path returned by
 See [the runbook](docs/runbook.md) for failure recovery, archived downloads and the existing local source bundle. Integration tests refuse cleanup unless `TEST_DATABASE_URL` names a database ending in `_test`. CI requires those tests to run; a missing URL cannot silently pass the database gate there.
 
 ## Open the app
+
+For this configured Neon checkout, run `npm run build` and `npm start` from the
+project root. The start command reads the ignored `.env.local`, uses the dedicated
+read-only login and refuses a write-capable API credential. The database is hosted
+on Neon; this command serves the web app locally. See [the full setup](docs/neon-setup.md).
+
+The original local-database path remains available below:
 
 The current checkout already has a built frontend and a loaded local database. Start the app with:
 

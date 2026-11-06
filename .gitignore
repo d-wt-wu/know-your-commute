@@ -16,3 +16,6 @@ web/dist/
 *.tsbuildinfo
 web/test-results/
 web/playwright-report/
+.neon
+.agents/
+.codex/

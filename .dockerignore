@@ -1,4 +1,7 @@
 .git
+.neon
+.agents
+.codex
 .venv
 .env
 .env.*

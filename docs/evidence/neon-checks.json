@@ -1,0 +1,34 @@
+{
+  "checked_at": "2026-11-06T00:17:50.095758+00:00",
+  "python": {
+    "tests": 73,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "hosted_neon_browser": {
+    "tests": 2,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "root_build": "passed: npm run build",
+  "neon_deploy": "production matches Postgres-only policy; three managed env variables pulled",
+  "neon_skill": {
+    "source": "https://neon.com/.well-known/agent-skills/neon/SKILL.md",
+    "sha256": "a92323993a4071fed1c670ccd21efb638c55bf3412a45daf4d5e08a1b92a4523",
+    "matches_installed": true,
+    "skills_up_to_date": 7
+  },
+  "mcp": {
+    "project_config_installed": true,
+    "authentication": "OAuth on first use; not verified through a live MCP tool call",
+    "inline_api_key": false
+  },
+  "cloud_database_evidence": "neon-database.json",
+  "rerun_evidence": "neon-rerun.json",
+  "public_web_deployment": "not provisioned",
+  "project_region": "aws-us-east-1",
+  "render_candidate_region": "virginia",
+  "repeat_deploy_preserves_existing_env_values": true
+}

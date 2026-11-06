@@ -167,8 +167,8 @@ and requires matching client tools. The existing local dump/restore drill is on
 PostgreSQL 17; a hosted PostgreSQL 18 backup drill has not been run because only
 the local 17 client tools are installed. No hosted recovery time is claimed.
 
-The candidate Render region was aligned from Ohio to Virginia after verifying
+The Render region was aligned from Ohio to Virginia after verifying
 the existing Neon project region. No database move/recreation occurred.
 
-No new paid plan, domain, public web deployment, App Store app or portfolio edit
-was created during this setup.
+The subsequent approved [Render Free release](public-website.md) publishes the
+website. No paid plan, domain, App Store app or portfolio edit was added.

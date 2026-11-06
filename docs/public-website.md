@@ -92,6 +92,15 @@ root build, container build and startup per job. Its fixture's route-102 total i
 35; it is deliberately separate from the real source's 65. Public HTTP/browser
 results are in `evidence/public-website.json`.
 
+Follow-up [release-check CI](https://github.com/d-wt-wu/know-your-commute/actions/runs/42143684661)
+also passed on `e120707`: both PostgreSQL 17/18 jobs ran 73 Python cases and eight
+synthetic browser cases, built the container and passed the expanded HTTP smoke
+check against its 40-row synthetic source / 35 matching January records. Both
+Python jobs reported the existing single Starlette/httpx deprecation warning.
+The live service remains the verified `e479d2d` application; verification/docs/type
+declarations do not require another deployment. All four published JS/CSS assets
+matched the local build byte for byte, with zero private credential matches.
+
 ## Failures, limits and next work
 
 The first public-browser invocation failed before any page ran because it looked

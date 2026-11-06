@@ -1,0 +1,38 @@
+{
+  "run_id": 42143684661,
+  "run_url": "https://github.com/d-wt-wu/know-your-commute/actions/runs/42143684661",
+  "source_commit": "e12070793cbce5c2d4289beed998a33f2a191a23",
+  "checked_at": "2026-11-06T01:27:54.127Z",
+  "jobs": [
+    {
+      "id": 127649899225,
+      "name": "data-workflow (18, 18)",
+      "status": "completed",
+      "conclusion": "success",
+      "python_passed": 73,
+      "python_skipped": 0,
+      "synthetic_browser_passed": 8,
+      "container_build_and_startup": "passed",
+      "proof": [
+        "2026-11-06T01:25:36.5780016Z ======================== 73 passed, 1 warning in 4.04s =========================",
+        "2026-11-06T01:26:04.1339499Z   8 passed (6.8s)",
+        "2026-11-06T01:26:22.2891256Z {\"status\": \"verified\", \"base_url\": \"http://127.0.0.1:8003\", \"route_102_january_records\": 35, \"median_recorded_delay_minutes\": 20.0, \"active_snapshot\": \"75eeb46a-e033-43e5-b698-8f391bdcc8b0\", \"accepted_source_records\": 40, \"rejected_source_records\": 0, \"readiness\": \"ready\", \"pattern_totals\": \"reconciled\", \"pagination\": \"snapshot pinned; nonoverlapping pages\", \"direct_page_links\": \"served\", \"home_screen_assets\": \"served\", \"missing_api_and_assets\": \"JSON 404\"}"
+      ]
+    },
+    {
+      "id": 127649899567,
+      "name": "data-workflow (17.11, 17)",
+      "status": "completed",
+      "conclusion": "success",
+      "python_passed": 73,
+      "python_skipped": 0,
+      "synthetic_browser_passed": 8,
+      "container_build_and_startup": "passed",
+      "proof": [
+        "2026-11-06T01:25:38.6206495Z ======================== 73 passed, 1 warning in 5.12s =========================",
+        "2026-11-06T01:26:30.6042044Z   8 passed (8.2s)",
+        "2026-11-06T01:26:50.5183181Z {\"status\": \"verified\", \"base_url\": \"http://127.0.0.1:8003\", \"route_102_january_records\": 35, \"median_recorded_delay_minutes\": 20.0, \"active_snapshot\": \"fa370e10-2a8f-4df5-8cbe-c1adb9add632\", \"accepted_source_records\": 40, \"rejected_source_records\": 0, \"readiness\": \"ready\", \"pattern_totals\": \"reconciled\", \"pagination\": \"snapshot pinned; nonoverlapping pages\", \"direct_page_links\": \"served\", \"home_screen_assets\": \"served\", \"missing_api_and_assets\": \"JSON 404\"}"
+      ]
+    }
+  ]
+}

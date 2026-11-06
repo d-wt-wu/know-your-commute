@@ -97,5 +97,37 @@
     "Production refresh remains opt-in and not scheduled.",
     "Neon project OAuth MCP is configured but live authentication is unverified.",
     "No native App Store release or real user count is claimed."
-  ]
+  ],
+  "public_asset_verification": {
+    "checked_at": "2026-11-06T01:26:54.645972+00:00",
+    "status": "verified",
+    "deployed_assets_matching_local_build": 4,
+    "private_credential_matches": 0,
+    "assets": [
+      {
+        "name": "Explorer-BvSQgPny.js",
+        "sha256": "1e90ebac5f173c904b6449ad57941303ffd3032d57ccce6506b2c94aae834073"
+      },
+      {
+        "name": "Pages-dodfHaT5.js",
+        "sha256": "c03fb832363c78ad54c606a42503d6530506f8bcd848e92ff46b5430d2250d77"
+      },
+      {
+        "name": "index-Be4REMq0.js",
+        "sha256": "2ff21f029f3a98c0487421610fe85dc350492a7a476f1fe725d3f82a0480e913"
+      },
+      {
+        "name": "index-Bp8-Hxoo.css",
+        "sha256": "b3743d907ce5c1dd71d0c342be5a47dfd3cd189d17371e74516e2fcc7a10d439"
+      }
+    ]
+  },
+  "release_check_ci": {
+    "run_id": 42143684661,
+    "run_url": "https://github.com/d-wt-wu/know-your-commute/actions/runs/42143684661",
+    "source_commit": "e12070793cbce5c2d4289beed998a33f2a191a23",
+    "checked_at": "2026-11-06T01:27:54.127Z",
+    "all_jobs": "success",
+    "evidence": "public-website-github-ci.json"
+  }
 }

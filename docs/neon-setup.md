@@ -3,9 +3,11 @@
 Owner: Wentao Wu. Updated 5 November 2026 (Toronto).
 
 The existing Python/FastAPI/SQLAlchemy/psycopg application now reads the hosted
-Neon database. Postgres is the only declared service. The frontend/API still run
-locally; `neon deploy` does not publish this FastAPI container or create a public
-website URL. Render hosting and a physical iPhone install remain separate steps.
+Neon database. Postgres is the only declared service. The frontend/API now run
+on Render at [the public website](https://know-your-commute.onrender.com).
+`neon deploy` configures the backend; the FastAPI container was deployed separately.
+See [the verified website release](public-website.md). A physical iPhone install
+remains unverified.
 
 ## Target and actual commands
 

@@ -1,4 +1,5 @@
-# Candidate configuration. No service has been provisioned by adding this file.
+# Mirrors the manually provisioned Free service. Editing this file alone does
+# not update that service; releases and settings are applied deliberately.
 services:
   - type: web
     name: know-your-commute

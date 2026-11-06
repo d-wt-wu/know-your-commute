@@ -1,0 +1,101 @@
+{
+  "checked_at": "2026-11-06T01:23:31.078Z",
+  "owner": "Wentao Wu",
+  "public_url": "https://know-your-commute.onrender.com",
+  "render": {
+    "service_id": "srv-dbmik7jrjlhs73cm99dg",
+    "deployment_id": "dep-dbmik83rjlhs73cm9af0",
+    "source_commit": "e479d2dc156daf25fac041cb153bce07af2a8e92",
+    "runtime": "docker",
+    "plan": "free",
+    "region": "virginia",
+    "auto_deploy": "off",
+    "health_path": "/api/v1/health",
+    "status": "live",
+    "first_deployment": "succeeded",
+    "readonly_startup_guard": true,
+    "card_added": false
+  },
+  "database": {
+    "provider": "Neon",
+    "postgres_version": "18.6",
+    "project_id": "shiny-frog-92110874",
+    "branch": "production",
+    "region": "aws-us-east-1",
+    "role": "commute_api",
+    "connection": "existing pooled reader only",
+    "owner_connection_sent_to_render": false
+  },
+  "root_build": {
+    "command": "npm run build",
+    "exit_code": 0,
+    "vite_stage": "103ms; not total build time"
+  },
+  "http_check": {
+    "status": "verified",
+    "base_url": "https://know-your-commute.onrender.com",
+    "route_102_january_records": 65,
+    "median_recorded_delay_minutes": 20,
+    "active_snapshot": "c0d65b97-256c-44d8-937c-a4eddc06c528",
+    "accepted_source_records": 107349,
+    "rejected_source_records": 0,
+    "readiness": "ready",
+    "pattern_totals": "reconciled",
+    "pagination": "snapshot pinned; nonoverlapping pages",
+    "direct_page_links": "served",
+    "home_screen_assets": "served",
+    "missing_api_and_assets": "JSON 404"
+  },
+  "public_browser": {
+    "command": "COMMUTE_PUBLIC_BASE_URL=https://know-your-commute.onrender.com npm --prefix web run test:hosted",
+    "tests": 2,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "retries": 0,
+    "seconds": 8.269511,
+    "viewports": [
+      {
+        "name": "desktop",
+        "width": 1280,
+        "height": 900
+      },
+      {
+        "name": "mobile",
+        "width": 375,
+        "height": 812
+      }
+    ],
+    "route_102_half_january_records": 39,
+    "page_errors": 0,
+    "only_reads": true,
+    "local_server_started": false
+  },
+  "portfolio": {
+    "portfolio_files_checked": 10,
+    "changed": 0
+  },
+  "earlier_implementation_ci": {
+    "run_url": "https://github.com/d-wt-wu/know-your-commute/actions/runs/42140733466",
+    "postgres_majors": [
+      17,
+      18
+    ],
+    "python_cases_per_job": 73,
+    "synthetic_browser_cases_per_job": 8,
+    "container_build_and_startup": "passed"
+  },
+  "initial_check_failures": [
+    "Hosted browser used the default cache; fixed by selecting the existing project browser. No page ran in that failed attempt.",
+    "Standalone config typecheck needed Node declarations and the frontend type-root path; corrected and passed.",
+    "Dependency download required network access; the authorized retry succeeded."
+  ],
+  "observed_nonfatal_platform_probe": "Initial HEAD / returned 405; configured GET health and page requests returned 200.",
+  "outstanding": [
+    "Physical iPhone installation has not been observed.",
+    "Hosted PostgreSQL 18 backup/restore drill needs matching client tools.",
+    "Production refresh remains opt-in and not scheduled.",
+    "Neon project OAuth MCP is configured but live authentication is unverified.",
+    "No native App Store release or real user count is claimed."
+  ]
+}

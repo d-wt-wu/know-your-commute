@@ -1,7 +1,7 @@
-# Website and iPhone release preparation
+# Website and iPhone release
 
 Owner: Wentao Wu. Provider information checked **5 November 2026**. This is a
-reviewable deployment configuration. The [source repository](https://github.com/d-wt-wu/know-your-commute) is public and its [container/build checks](https://github.com/d-wt-wu/know-your-commute/actions/runs/42126800606) passed. No public app service exists yet.
+verified release configuration. The [website is live](https://know-your-commute.onrender.com), the [source repository](https://github.com/d-wt-wu/know-your-commute) is public, and its [PostgreSQL 17/18 container/build checks](https://github.com/d-wt-wu/know-your-commute/actions/runs/42140733466) passed. Actual public HTTPS checks and screenshots are recorded in [the release evidence](public-website.md).
 
 ## First release
 
@@ -24,13 +24,13 @@ membership is currently [US$99 per year, with regional pricing](https://develope
 expects useful functionality beyond a repackaged website. No membership, native
 project, TestFlight upload or App Store approval is claimed.
 
-## Candidate host and cost limits
+## Hosting and cost limits
 
-| Component | Proposed setting | Verified limits and consequence |
+| Component | Actual setting | Verified limits and consequence |
 | --- | --- | --- |
 | Web/API | One Render Docker web service, Free, Virginia | 750 free instance hours per workspace/month. Idle after 15 minutes; waking takes about a minute. Files disappear across restarts/redeploys. Bandwidth/build limits also apply. |
-| Database | Separate Neon Free PostgreSQL 17 project, AWS US East 1 (N. Virginia), matching the existing project | $0, no card required, 100 CU-hours/project/month and 1 GB/project. Autosuspends after five idle minutes. Check the console's actual quota and region before creation. |
-| Address | Host-provided HTTPS address | No domain purchase needed. No project hostname is invented in this repository. |
+| Database | Existing Neon Free PostgreSQL 18.6 project, AWS US East 1 (N. Virginia) | $0, no card required, 100 CU-hours/project/month and 1 GB/project. Autosuspends after five idle minutes. Monitor the existing project's quota. |
+| Address | https://know-your-commute.onrender.com | Host-provided HTTPS address; verified after deployment. No domain purchase needed. |
 
 Sources: [Render Free limits](https://render.com/docs/free), [Neon pricing](https://neon.com/pricing).
 Render's free database expires after 30 days; it is not the persistent database
@@ -83,14 +83,15 @@ is bounded to three persistent plus two temporary connections per process, with 
 1. Publish the reviewed repository and require the real GitHub checks to pass.
    CI runs PostgreSQL tests, browser tests, builds the image and starts it against
    the isolated synthetic fixture. A prepared YAML file is not a successful run.
-2. With the owner's account/plan choice, create a Neon Free PostgreSQL 17 project
-   and a dedicated unprivileged API login in the provider console. Confirm the
-   region, quota and absence of a payment commitment. Keep credentials private.
+2. Verify the owner's existing Neon Free project and its region/quota. The
+   selected project uses PostgreSQL 18.6. Use a dedicated ordinary SQL API login
+   with explicit reporting-table reads. Keep credentials private.
 3. From the checkout, apply `alembic upgrade head` using the owner connection,
    run one deliberate official import and grant the dedicated API role reads.
    Verify the source version/counts in Data health; they may differ from the
    original local source if the City published a correction.
-4. Connect Render to this repository and review `render.yaml`. Confirm **Free**,
+4. Connect Render to the public Git repository URL and review `render.yaml`. This
+   avoids granting a GitHub App additional repository permissions. Confirm **Free**,
    external Neon storage, manual deploys and the API-only TLS URL. Do not expose a
    local database or copy the local example password into the host.
 5. Deploy and verify the actual HTTPS URL: root, About/Data health direct links,
@@ -107,4 +108,17 @@ There is no automatic migration or import on app startup or visitor requests.
 Keep the existing portfolio separate until a verified public app/repository link
 exists and a portfolio update is requested.
 
-The owner-selected Neon project was verified in `aws-us-east-1` on 5 November 2026. The prepared Render region was updated from Ohio to Virginia to match that existing database; the database was not moved or recreated. See `neon-setup.md` for actual migration/import/browser evidence.
+The owner-selected Neon project was verified in `aws-us-east-1` on 5 November 2026. Render was provisioned in Virginia to match that existing database; the database was not moved or recreated. Render receives only the existing `COMMUTE_API_DATABASE_URL` value as its `DATABASE_URL`, with `COMMUTE_REQUIRE_READONLY=1`. The owner/import URL stays private and local. No migration/import command runs during the website build or startup.
+
+Repeat the public read-only checks from the checkout:
+
+```sh
+python scripts/check_deployment.py --base-url https://know-your-commute.onrender.com --expected-records 65
+COMMUTE_PUBLIC_BASE_URL=https://know-your-commute.onrender.com npm --prefix web run test:hosted
+```
+
+Install the normal Playwright Chromium browser first if absent. This Mac already
+has it in ignored `work/pw-browsers`; set `PLAYWRIGHT_BROWSERS_PATH` to that absolute
+directory when reusing it. The hosted suite starts no local server and never
+seeds, truncates or migrates a database. The expected count refers to the recorded
+source snapshot; review it if a future official correction changes January 2025.

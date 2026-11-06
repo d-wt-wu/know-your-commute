@@ -2,7 +2,9 @@
 
 An independent project by **Wentao Wu** for exploring historical reported TTC bus delay records. Select a bus route and date range, inspect recorded causes/durations, and follow a result back to its source rows and quality flags.
 
-**Status:** The app is connected to hosted Neon PostgreSQL with **107,349 official records** and a separate read-only API login. **73 Python checks** and **two real-Neon desktop/mobile browser journeys** passed locally, along with the root build. The existing eight-case synthetic browser suite and container checks also run in CI. The public website host is not provisioned. See [Neon setup/results](docs/neon-setup.md) and [progress](docs/progress.md).
+**[Open the website](https://know-your-commute.onrender.com)** · [Release verification](docs/public-website.md)
+
+The app runs on Render Free with **107,349 official records** in Neon PostgreSQL and a separate read-only API login. Two desktop/mobile journeys passed against the public HTTPS website, including real filters, pagination and source health. The Python/isolated browser/container checks also passed on PostgreSQL 17 and 18. A free instance can take about a minute to wake after inactivity. See [Neon setup/results](docs/neon-setup.md) and [progress](docs/progress.md).
 
 Record counts cannot establish a bus trip's delay probability or rank route reliability: this source has no scheduled/operated-trip denominator. Recorded delay minutes describe delay to the following bus's schedule. They are not passenger-minutes lost. This is historical data, not live arrivals.
 
@@ -81,7 +83,7 @@ npm --prefix web run build
 
 For frontend development, run `npm --prefix web run dev` in a second terminal; Vite proxies `/api` to the API on port 8000. Node 22.17.1 was used locally. JavaScript dependencies are locked in `web/package-lock.json`.
 
-![Verified local explorer](docs/screenshots/explorer-desktop.jpg)
+![Verified public explorer](docs/screenshots/public-desktop.jpg)
 
 ## What is implemented
 

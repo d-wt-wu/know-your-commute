@@ -30,5 +30,17 @@
   "public_web_deployment": "not provisioned",
   "project_region": "aws-us-east-1",
   "render_candidate_region": "virginia",
-  "repeat_deploy_preserves_existing_env_values": true
+  "repeat_deploy_preserves_existing_env_values": true,
+  "github_ci": {
+    "status": "success",
+    "run_url": "https://github.com/d-wt-wu/know-your-commute/actions/runs/42140733466",
+    "implementation_commit": "3c43bc23999b6b841682f844e6ac7806a518b9cd",
+    "postgres_majors": [
+      17,
+      18
+    ],
+    "python_tests_per_job": 73,
+    "synthetic_browser_tests_per_job": 8,
+    "container_build_and_startup": "passed"
+  }
 }

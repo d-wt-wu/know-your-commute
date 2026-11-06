@@ -121,3 +121,6 @@ Recovery/automation details: `docs/operations.md`. The existing portfolio, paper
 - The public website host and physical iPhone install remain pending. The app was started locally against hosted Neon and stopped after tests. Existing portfolio/paper/photos remain separate.
 
 Evidence and full change log: `docs/neon-setup.md`, `docs/evidence/neon-checks.json`, `neon-database.json`, `neon-rerun.json`.
+
+- Final Neon integration CI: [run 42140733466](https://github.com/d-wt-wu/know-your-commute/actions/runs/42140733466) passed on implementation commit `3c43bc2`, with PostgreSQL 17/18, 73 Python cases and eight synthetic browser cases per job, plus both container build/startup checks. Real-Neon desktop/mobile checks remain separately verified.
+- Render GitHub authorization is complete, but its separate account-confirmation form requires the owner to review the prefilled email and terms before account creation. No Render service has been created.

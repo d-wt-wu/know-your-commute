@@ -111,7 +111,9 @@ eight-case browser suite remains isolated on its synthetic local/CI database.
 - The actual `commute_api` connection used TLS and was refused record writes and
   raw-record reads. Source hashes/provenance were retained in the hosted import.
 
-Evidence: `evidence/neon-database.json`, `evidence/neon-rerun.json` and
+The [GitHub run](https://github.com/d-wt-wu/know-your-commute/actions/runs/42140733466) also passed on PostgreSQL 17 and 18. Each job ran 73 Python cases, eight synthetic browser cases, the root build, Docker build and a running-container check. This is separate from the two real-Neon browser checks.
+
+Evidence: `evidence/neon-github-ci.json`, `evidence/neon-database.json`, `evidence/neon-rerun.json` and
 `evidence/neon-checks.json`. Existing portfolio/paper/photo hashes remain unchanged.
 The local suite has one previously known Starlette/httpx deprecation warning.
 
